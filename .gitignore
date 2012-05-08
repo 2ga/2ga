@@ -1,8 +1,10 @@
 cache/*
 log/*
 web/uploads/*
+web/sf
 config/databases.yml
 config/propel.ini
+config/ProjectConfiguration.class.php
 data/sql/*
 lib/filter/doctrine/base/Base*
 lib/filter/doctrine/*Plugin/base/Base*
@@ -12,3 +14,9 @@ lib/model/doctrine/base/Base*
 lib/model/doctrine/*Plugin/base/Base*
 lib/model/om/*
 lib/model/map/*
+*.DS_Store
+*~
+#*#
+/nbproject/private/
+apps/frontend/config/ideExec.yml
+web/frontend_dev.php
