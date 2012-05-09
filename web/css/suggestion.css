@@ -1,0 +1,37 @@
+.completions {
+        position: absolute;
+        z-index: 2000;
+        overflow: hidden;
+        border: 1px solid blue;
+        -webkit-box-shadow: 2px 3px 5px rgba(0,0,0,.2);
+        -moz-box-shadow: 2px 3px 5px rgba(0,0,0,.2);
+        box-shadow: 2px 3px 5px rgba(0,0,0,.2);
+}
+
+.comment {
+        position: absolute;
+        width: 150px;
+        height: 139px;
+        z-index: 2000;
+        overflow: hidden;
+        border: 1px solid blue;
+        background: #424242;
+}
+
+.textarea {
+        width: 150px;
+        height: 135px;
+        border: 0.5px solid blue;
+        color:white;
+        background: #424242;
+}
+
+.completions select {
+    background: #424242;
+    color: white;
+    outline: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    font-family: monospace;
+}

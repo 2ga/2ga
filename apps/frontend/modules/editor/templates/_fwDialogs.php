@@ -1,0 +1,1 @@
+ <?php include_partial('symfony/fwDialogs', array('project_id' => $project_id,'fw' => 'symfony')) ?>

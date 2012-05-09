@@ -1,0 +1,33 @@
+default:
+  has_layout:     true
+  layout:         member_layout
+addSuccess:
+  haslayout:      true
+  layout:         xml
+addError:
+  haslayout:      true
+  layout:         xml
+commitSuccess:
+  haslayout:      true
+  layout:         xml
+commitError:
+  haslayout:      true
+  layout:         xml
+pullSuccess:
+  haslayout:      true
+  layout:         xml
+pullError:
+  haslayout:      true
+  layout:         xml
+pushSuccess:
+  haslayout:      true
+  layout:         xml
+pushError:
+  haslayout:      true
+  layout:         xml
+easycommitSuccess:
+  haslayout:      true
+  layout:         xml
+easycommitError:
+  haslayout:      true
+  layout:         xml

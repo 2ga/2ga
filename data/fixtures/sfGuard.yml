@@ -1,0 +1,23 @@
+IdeVcs:
+  Local:
+    name:     Local
+    shortname:      local
+    disp_order: 1
+  Git:
+    name:     Git
+    shortname:      git
+    disp_order: 2
+IdeLanguage:
+  symfony1.4:
+    name:           PHP_symfony1.4
+    shortname:      symfony14
+    disp_order: 1
+  RoR:
+    name:           Rails
+    shortname:      rails3
+    disp_order: 2
+IdeVcsprotocol:
+  SSH:
+    name:           SSH
+    shortname:      ssh
+    disp_order: 1

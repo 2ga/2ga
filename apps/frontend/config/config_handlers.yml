@@ -1,0 +1,4 @@
+config/ideExec.yml:
+  class: sfDefineEnvironmentConfigHandler
+  param:
+    prefix: ideexec_

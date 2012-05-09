@@ -1,0 +1,5 @@
+#check OK
+default:
+
+  has_layout:     true
+  layout:         simple_layout

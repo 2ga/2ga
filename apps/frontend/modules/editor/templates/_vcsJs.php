@@ -1,0 +1,1 @@
+<?php include_partial('git/vcsJs',array('project_id' => $project_id,'vcs' => 'git')) ?>

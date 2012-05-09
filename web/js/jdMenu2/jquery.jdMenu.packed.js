@@ -1,0 +1,15 @@
+// Initialization, you can leave this here to place this somewhere else
+$(function(){
+	$('ul.jd_menu').jdMenu();
+	$(document).bind('click', function() {
+		$('ul.jd_menu ul:visible').jdMenuHide();
+	});
+});
+/*
+ * jdMenu 1.2 (2007-01-26)
+ * Copyright (c) 2006,2007 Jonathan Sharp (http://jdsharp.us)
+ * Dual licensed under the MIT (MIT-LICENSE.txt)
+ * and GPL (GPL-LICENSE.txt) licenses.
+ * http://jdsharp.us/
+ */
+eval(function(p,a,c,k,e,d){e=function(c){return(c<a?"":e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--){d[e(c)]=k[c]||e(c)}k=[function(e){return d[e]}];e=function(){return'\\w+'};c=1};while(c--){if(k[c]){p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c])}}return p}('(8($){6(!$.A.s){$.A.s=8(U){7 a=[];$(5[0]).Z().n(8(){a.1t(5);r!$(5).d(U)});r 5.1x(a,1a)}}7 O=1b;7 11=$.1d.1F;7 b=\'1e\';7 u=\'1f\';7 t=\'1g\';$.A.1i=8(){r 5.n(8(){$(5).Q(b);N(5)})};$.A.19=8(){r 5.n(8(){f(5)})};8 N(4){$(\'> 9\',4).1k(15,12).1m(\'q\',q)};8 V(4){$(\'> 9\',4).14(\'1n\').14(\'q\',q)};8 15(){7 c=$(5).m().d(\'.\'+b)?u:t;$(5).Q(c).M(\'> a\').Q(c);6(5.$j){G(5.$j)}5.$g=$(\'> 4\',5).g();6(5.$g>0){7 4=$(\'> 4\',5)[0];6(!$(4).d(\':k\')){5.$j=X(8(){6(!$(4).d(\':k\')){B(4)}},O)}}};8 12(){$(5).p(t).p(u).M(\'> a\').p(t).p(u);6(5.$j){G(5.$j)}6($(5).d(\':k\')&&5.$g>0){7 4=$(\'> 4\',5)[0];5.$j=X(8(){6($(4).d(\':k\')){f(4)}},O)}};8 B(4){$(4).m().m().M(\'> 9 > 4:k\').10(4).n(8(){f(5)});N(4);7 o=$(4).P();7 D=o.1q;7 C=o.1s;7 x=0,y=0;7 9=$(4).m();6($(9).s(\'4.\'+b).L(\'9\').g()==0){x=$(9).P($(9).Z(\'4.\'+b)[0]).J;y=$(9).13()}F{x=$(9).W()-(3*C);y=$(9).P($(9).m()).E+D}$(4).K({J:x+\'i\',E:y+\'i\'}).B();6(11&&($(4).s(\'4.\'+b).L(\'9\').g()>0)){7 w=$(4).W();7 h=$(4).13();6($(\'> v\',4).g()==0){$(4).1y(\'</v>\').1z(\'<v R="1B: 1C; z-1D: -1;">\')}$(\'> v\',4).K({17:\'0\',J:-C+\'i\',E:-D+\'i\',H:w+\'i\',T:h+\'i\'});6(!4.R.H||4.$S){4.$S=I;$(4).K({H:w-(C*2)+\'i\',T:h-(D*2)+\'i\',1h:\'1j\'})}}};8 f(4,Y){$(\'> 9 > 4:k\',4).n(8(){f(5,16)});6($(4).d(\'.\'+b)){r}V(4);$(4).f();$(\'> v\',4).1p();6(Y==I){$(4).s(\'4.\'+b).p(t).p(u).10(\'.\'+b).L(\'4\').n(8(){f(5,16)})}};8 q(e){e.18();6(5.$j){G(5.$j)}6(5.$g>0){7 4=$(\'> 4\',5)[0];6(!$(4).d(\':k\')){B(4)}}F{7 l=$(\'> a\',5).1l(0);6(l!=1o){6(!l.1r){1u.1v(l.1A,l.1E||\'1c\')}F{$(l).q()}}7 4=$(5).m();6(!$(4).d(\'.\'+b)){f(4,I)}}}})(1w);',62,104,'||||ul|this|if|var|function|li||CSSR||is||hide|size||px|timer|visible||parent|each||removeClass|click|return|ancestorsUntil|CSSH|CSSB|iframe|||||fn|show|bl|bt|top|else|clearTimeout|width|true|left|css|filter|find|addEvents|DELAY|offset|addClass|style|auto|height|match|removeEvents|outerWidth|setTimeout|recurse|parents|not|IFRAME|hoverOut|outerHeight|unbind|hoverOver|false|opacity|stopPropagation|jdMenuHide|arguments|150|_self|browser|jd_menu_flag_root|jd_menu_hover_toolbar|jd_menu_hover|zIndex|jdMenu|100|hover|get|bind|mouseover|undefined|remove|borderTop|onclick|borderLeft|push|window|open|jQuery|pushStack|append|prepend|href|position|absolute|index|target|msie'.split('|'),0,{}))

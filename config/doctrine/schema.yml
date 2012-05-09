@@ -1,0 +1,183 @@
+IdeProject:
+  actAs:
+    SoftDelete: {}
+    Timestampable:
+  columns:
+    id:
+      type: integer
+      primary: true
+      autoincrement: true
+    localdir:
+      type: string(255)
+    name:
+      type: string(255)
+    description:
+      type: string(3000)
+    ide_user_id:
+      type: integer
+    ide_key_id:
+      type: integer
+    ide_vcsprotocol_id:
+      type: integer
+    ide_language_id:
+      type: integer
+    ide_vcs_id:
+      type: integer
+    uri:
+      type: string(2027)
+    repdir:
+      type: string(2027)
+    port:
+      type: integer
+    username:
+      type: string(255)
+    origin:
+      type: string(255)
+    prepare:
+      type: integer
+  relations:
+    sfGuardUser:
+      local: ide_user_id
+      foreign: id
+    IdeLanguage:
+      local: ide_language_id
+      foreign: id 
+    IdeVcs:
+      local: ide_vcs_id
+      foreign: id 
+    IdeDeploys:
+      type: many
+      class: IdeDeploy
+      local: id
+      foreign: ide_project_id 
+    IdeKey:
+      local: ide_key_id
+      foreign: id 
+    IdeVcsprotocol:
+      local: ide_vcsprotocol_id
+      foreign: id 
+IdeLanguage:
+  actAs:
+    SoftDelete: {}
+    Timestampable:
+  columns:
+    id:
+      type: integer
+      primary: true
+      autoincrement: true
+    name:
+      type: string(255)
+    shortname:
+      type: string(255)
+    description:
+      type: string(3000)
+    disp_order:
+      type: integer
+  relations:
+    IdeProjects:
+      type: many
+      class: IdeProject
+      local: id
+      foreign: ide_language_id
+IdeVcsprotocol:
+  actAs:
+    SoftDelete: {}
+    Timestampable:
+  columns:
+    id:
+      type: integer
+      primary: true
+      autoincrement: true
+    name:
+      type: string(255)
+    shortname:
+      type: string(255)
+    description:
+      type: string(3000)
+    disp_order:
+      type: integer
+  relations:
+    IdeProjects:
+      type: many
+      class: IdeProject
+      local: id
+      foreign: ide_vcsprotocol_id  
+IdeVcs:
+  actAs:
+    SoftDelete: {}
+    Timestampable:
+  columns:
+    id:
+      type: integer
+      primary: true
+      autoincrement: true
+    name:
+      type: string(255)
+    shortname:
+      type: string(255)
+    description:
+      type: string(3000)
+    disp_order:
+      type: integer
+  relations:
+    IdeProjects:
+      type: many
+      class: IdeProject
+      local: id
+      foreign: ide_vcs_id   
+IdeKey:
+  actAs:
+    Timestampable:
+  columns:
+    id:
+      type: integer
+      primary: true
+      autoincrement: true
+    name:
+      type: string(255)
+    ide_user_id:
+      type: integer
+    description:
+      type: string(3000)
+    pubkey:
+      type: string(1000)
+  relations:
+    sfGuardUser:
+      local: ide_user_id
+      foreign: id
+    IdeDeploys:
+      type: many
+      class: IdeDeploy
+      local: id
+      foreign: ide_key_id  
+IdeDeploy:
+  actAs:
+    Timestampable:
+  columns:
+    id:
+      type: integer
+      primary: true
+      autoincrement: true
+    name:
+      type: string(255)
+    description:
+      type: string(3000)
+    ide_project_id:
+      type: integer
+    ide_key_id:
+      type: integer
+    username:
+      type: string(255)
+    uri:
+      type: string(2027)
+    directory:
+      type: string(2027)
+    port:
+      type: integer
+  relations:
+    IdeProject:
+      local: ide_project_id
+      foreign: id
+    IdeKey:
+      local: ide_key_id
+      foreign: id 

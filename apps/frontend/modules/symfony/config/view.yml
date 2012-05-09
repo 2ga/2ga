@@ -1,0 +1,9 @@
+default:
+  has_layout:     true
+  layout:         member_layout
+addmodSuccess:
+  haslayout:      true
+  layout:         xml
+addmodError:
+  haslayout:      true
+  layout:         xml

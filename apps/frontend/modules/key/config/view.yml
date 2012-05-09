@@ -1,0 +1,3 @@
+default:
+  has_layout:     true
+  layout:         member_layout

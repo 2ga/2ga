@@ -17,6 +17,10 @@ lib/model/map/*
 *.DS_Store
 *~
 #*#
-/nbproject/private/
+nbproject/private/
 apps/frontend/config/ideExec.yml
+apps/frontend/config/app.yml
+apps/frontend/config/factories.yml
+apps/backend/config/app.yml
 web/frontend_dev.php
+web/backend_dev.php

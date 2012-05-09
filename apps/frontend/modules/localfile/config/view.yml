@@ -1,0 +1,39 @@
+default:
+  has_layout:     true
+  layout:         member_layout
+openSuccess:
+  haslayout:      true
+  layout:         xml
+openError:
+  haslayout:      true
+  layout:         xml
+writeSuccess:
+  haslayout:      true
+  layout:         xml
+writeError:
+  haslayout:      true
+  layout:         xml
+removeSuccess:
+  haslayout:      true
+  layout:         xml
+removeError:
+  haslayout:      true
+  layout:         xml
+mkfileSuccess:
+  haslayout:      true
+  layout:         xml
+mkfileError:
+  haslayout:      true
+  layout:         xml
+mkdirSuccess:
+  haslayout:      true
+  layout:         xml
+mkdirError:
+  haslayout:      true
+  layout:         xml
+moveSuccess:
+  haslayout:      true
+  layout:         xml
+moveError:
+  haslayout:      true
+  layout:         xml
