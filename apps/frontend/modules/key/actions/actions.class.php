@@ -85,18 +85,9 @@ class keyActions extends sfActions
       if($db_obj->isNameExist($form->getValue('name'),$this->getUser()->getGuardUser()->getId())){ 
         return sfView::ERROR;
       }
-      $user_obj=new LibUser(array(
-        'is_mac' => sfConfig::get('ideexec_mac'),
-        'is_simulation_open' => sfConfig::get('ideexec_simulation_open'),
-        'is_simulation_write' => sfConfig::get('ideexec_simulation_write'),
-        'is_simulation_git' => sfConfig::get('ideexec_simulation_git'),
-        'is_simulation_user' => sfConfig::get('ideexec_defaultuser'),
-        'is_noexec_user' => sfConfig::get('ideexec_noexec_user'),
-        'default_user' => ''
-    ));
+
       
-      $user_obj->init($this->getUser()->getGuardUser()->getUsername());
-      $pubkey=$user_obj->generatePubKey($form->getValue('name'));
+      $pubkey=  TogaKeypair::Generate($this, $form->getValue('name'),  $this->getUser()->getGuardUser()->getEmailAddress(), $this->getUser()->getGuardUser()->getUsername());
       //$pubkey=$form->getValue('name');
       $ide_key= $db_obj->newKey($form,$this->getUser()->getGuardUser()->getId(),$pubkey);
       }else{
