@@ -27,7 +27,7 @@ class TogaMysql
     {
       $controller->logMessage('{TOGA} ' . $e->getMessage(), 'err');
     }
-    exec("mysqladmin -u" . TogaSettings::getSqlUname() . " -p" . TogaSettings::getSqlPasswd() . " create toga-" . $userName . "_" . $projectName . "_" . $num);
+    exec("mysqladmin -u" . TogaSettings::getSqlUname() . " -p" . TogaSettings::getSqlPassword() . " create toga-" . $userName . "_" . $projectName . "_" . $num);
   }
 
   static function createUser($controller,$userName, $mkey)

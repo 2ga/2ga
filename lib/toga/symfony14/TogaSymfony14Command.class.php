@@ -17,7 +17,7 @@ class TogaSymfony14Command
   {
       try
     {
-    exec("cd " . TogaSettings::getDataDir() . "/users/" . $userName . "/projects/" . $projectName . "; ./symfony generate:project " . $projectName);
+    exec ("cd " . TogaSettings::getDataDir() . "/users/" . $userName . "/projects/" . $projectName . "; " . TogaSettings::getAppDir() . "/lib/vendor/symfony/data/bin/symfony generate:project " . $projectName);
     exec("ln -s " . TogaSettings::getAppDir() . "/lib/vendor/symfony/data/web/sf " . TogaSettings::getDataDir() . "/users/" . $userName . "/projects/" . $projectName . "/web/sf");      
     }
     catch (Exception $e)
