@@ -16,7 +16,7 @@ class TogaSymfony14Command
   static function generateProject($controller,$userName, $projectName)
   {
 
-    exec("cd " . TogaSettings::getDataDir() . "/users/" . $userName . "/projects/" . $projectName . "; symfony generate:project " . $projectName);
+    exec("cd " . TogaSettings::getDataDir() . "/users/" . $userName . "/projects/" . $projectName . "; ./symfony generate:project " . $projectName);
     exec("ln -s " . TogaSettings::getAppDir() . "/lib/vendor/symfony/data/web/sf " . TogaSettings::getDataDir() . "/users/" . $userName . "/projects/" . $projectName . "/web/sf");
   }
 
@@ -50,7 +50,7 @@ class TogaSymfony14Command
   {
     try
     {
-      exec("cd " . TogaSettings::getDataDir() . "/users/" . $userName . "/projects/" . $projectName . "; symfony generate:app $controllerName");
+      exec("cd " . TogaSettings::getDataDir() . "/users/" . $userName . "/projects/" . $projectName . "; ./symfony generate:app $controllerName");
     }
     catch (Exception $e)
     {
@@ -62,7 +62,7 @@ class TogaSymfony14Command
   {
     try
     {
-      exec("cd " . TogaSettings::getDataDir() . "/users/" . $userName . "/projects/" . $projectName . "; symfony generate:module $controllerName $moduleName");
+      exec("cd " . TogaSettings::getDataDir() . "/users/" . $userName . "/projects/" . $projectName . "; ./symfony generate:module $controllerName $moduleName");
     }
     catch (Exception $e)
     {
@@ -75,7 +75,7 @@ class TogaSymfony14Command
 
     try
     {
-      exec("cd " . TogaSettings::getDataDir() . "/users/" . $userName . "/projects/" . $projectName . "; symfony cc");
+      exec("cd " . TogaSettings::getDataDir() . "/users/" . $userName . "/projects/" . $projectName . "; ./symfony cc");
     }
     catch (Exception $e)
     {
