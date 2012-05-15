@@ -13,7 +13,7 @@
 class TogaFilesystem
 {
 
-  static function makeDir($controller,$path)
+  static function mkDir($controller,$path)
   {
 
     try
@@ -178,9 +178,7 @@ class TogaFilesystem
 
     try
     {
-      if (!self::checkName($projectName) ||
-              !self::checkName($userName))
-      {
+      if (!self::checkName($userName)){
         $e = "invalid project name";
         throw new Exception($e);
       }
