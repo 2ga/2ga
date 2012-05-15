@@ -190,9 +190,9 @@ class TogaFilesystem
 
 
     $path = TogaSettings::getDataDir() . "/users/" . $userName;
-    self::mkdir($path);
+    self::mkdir($controller,$path);
     $path = TogaSettings::getDataDir() . "/users/" . $userName . "/.ssh";
-    self::mkdir($path);
+    self::mkdir($controller,$path);
   }
   
   static function checkName($string)
