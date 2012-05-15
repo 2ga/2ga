@@ -169,7 +169,7 @@ class TogaFilesystem
 
 
     $path = TogaSettings::getDataDir() . "/users/" . $userName . "/projects/" . $projectName;
-    self::mkdir($path);
+    self::mkdir($controller,$path);
   }
 
     static function createUser($controller,$userName)
