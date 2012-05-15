@@ -14,6 +14,7 @@ lib/model/doctrine/base/Base*
 lib/model/doctrine/*Plugin/base/Base*
 lib/model/om/*
 lib/model/map/*
+lib/toga/core/base/*
 *.DS_Store
 *~
 #*#
