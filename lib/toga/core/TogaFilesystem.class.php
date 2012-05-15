@@ -37,7 +37,7 @@ class TogaFilesystem
   {
     try
     {
-      if (!self::isValidPath($path))
+      if (!self::checkPath($path))
       {
         $e = 'Arg(s) invalid:' . $path . $permission;
         throw new Exception($e);
@@ -54,7 +54,7 @@ class TogaFilesystem
   {
     try
     {
-      if (!self::isValidPath($path))
+      if (!self::checkPath($path))
       {
         $e = 'Arg(s) invalid:' . $path . $permission;
         throw new Exception($e);
@@ -74,7 +74,7 @@ class TogaFilesystem
 
     try
     {
-      if (!self::isValidPath($path))
+      if (!self::checkPath($path))
       {
         $e = 'Arg(s) invalid:' . $path . $permission;
         throw new Exception($e);
@@ -92,7 +92,7 @@ class TogaFilesystem
 
     try
     {
-      if (!self::isValidPath($from) || !self::isValidPath($to))
+      if (!self::checkPath($from) || !self::isValidPath($to))
       {
         $e = 'Arg(s) invalid:' . $from . $to;
         throw new Exception($e);
@@ -109,7 +109,7 @@ class TogaFilesystem
   {
     try
     {
-      if (!self::isValidPath($path))
+      if (!self::checkPath($path))
       {
         $e = 'Arg(s) invalid:' . $path . $permission;
         throw new Exception($e);
