@@ -172,6 +172,31 @@ class TogaFilesystem
     self::mkdir($path);
   }
 
+    static function createUser($controller,$userName)
+  {
+
+
+    try
+    {
+      if (!self::checkName($projectName) ||
+              !self::checkName($userName))
+      {
+        $e = "invalid project name";
+        throw new Exception($e);
+      }
+    }
+    catch (Exception $e)
+    {
+      $controller->logMessage('{TOGA} ' . $e->getMessage(), 'err');
+    }
+
+
+    $path = TogaSettings::getDataDir() . "/users/" . $userName;
+    self::mkdir($path);
+    $path = TogaSettings::getDataDir() . "/users/" . $userName . "/.ssh";
+    self::mkdir($path);
+  }
+  
   static function checkName($string)
   {
     $pattern = '/^[0-9a-zA-z]+$/';

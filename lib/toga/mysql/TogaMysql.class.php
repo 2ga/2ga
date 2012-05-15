@@ -30,7 +30,7 @@ class TogaMysql
     exec("mysqladmin -u" . TogaSettings::getSqlUname() . " -p" . TogaSettings::getSqlPasswd() . " create toga-" . $userName . "_" . $projectName . "_" . $num);
   }
 
-  function createUser($controller,$projectName,$userName, $mkey)
+  static function createUser($controller,$userName, $mkey)
   {
     $userName='toga-' . $userName;
     try
@@ -54,7 +54,7 @@ class TogaMysql
             "GRANT ALL PRIVILEGES ON  `" . $userName . "\\_%` . * TO  '" . $userName . "'@'localhost'; ";
     $libfs = new LibFileSystem();
     $libfs->makeFile("/tmp/toga/$userName.sql", $body);
-    exec("mysql --user=" . TogaSettings::getSqlUname() ." --password=" . TogaSettings::getSqlPasswd() . '< ' . "/tmp/webide/$userName$projectName.sql");
+    exec("mysql --user=" . TogaSettings::getSqlUname() ." --password=" . TogaSettings::getSqlPasswd() . '< ' . "/tmp/webide/$userName.sql");
     $libfs->removeDir("/tmp/webide/$userName.sql");
   }
 
