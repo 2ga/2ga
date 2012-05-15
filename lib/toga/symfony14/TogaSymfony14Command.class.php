@@ -15,9 +15,16 @@ class TogaSymfony14Command
 
   static function generateProject($controller,$userName, $projectName)
   {
-
+      try
+    {
     exec("cd " . TogaSettings::getDataDir() . "/users/" . $userName . "/projects/" . $projectName . "; ./symfony generate:project " . $projectName);
-    exec("ln -s " . TogaSettings::getAppDir() . "/lib/vendor/symfony/data/web/sf " . TogaSettings::getDataDir() . "/users/" . $userName . "/projects/" . $projectName . "/web/sf");
+    exec("ln -s " . TogaSettings::getAppDir() . "/lib/vendor/symfony/data/web/sf " . TogaSettings::getDataDir() . "/users/" . $userName . "/projects/" . $projectName . "/web/sf");      
+    }
+    catch (Exception $e)
+    {
+      $controller->logMessage('{TOGA} ' . $e->getMessage(), 'err');
+    }  
+    
   }
 
   static function generateDBYml($controller,$userName, $projectName, $num, $user_id)
