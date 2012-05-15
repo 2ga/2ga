@@ -58,7 +58,7 @@ class TogaMysql
     $libfs->removeDir("/tmp/webide/$userName.sql");
   }
 
-  static function chackName($string)
+  static function checkName($string)
   {
     //TODO:Make pattern
     $pattern = '';
