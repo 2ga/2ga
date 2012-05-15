@@ -52,8 +52,7 @@ class TogaMysql
             "GRANT USAGE ON * . * TO  '" . $userName . "'@'localhost' IDENTIFIED BY  '" . $mkey .
             "' WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0 ;" .
             "GRANT ALL PRIVILEGES ON  `" . $userName . "\\_%` . * TO  '" . $userName . "'@'localhost'; ";
-    $libfs = new LibFileSystem();
-    $libfs->makeFile("/tmp/toga/$userName.sql", $body);
+    TogaFilesystem::writeFile($this,"/tmp/toga/$userName.sql", $body);
     exec("mysql --user=" . TogaSettings::getSqlUname() ." --password=" . TogaSettings::getSqlPasswd() . '< ' . "/tmp/webide/$userName.sql");
     $libfs->removeDir("/tmp/webide/$userName.sql");
   }
@@ -62,7 +61,7 @@ class TogaMysql
   {
     //TODO:Make pattern
     $pattern = '';
-    return preg_match($pattern, $string);
+    //return preg_match($pattern, $string);
   }
 
 }
