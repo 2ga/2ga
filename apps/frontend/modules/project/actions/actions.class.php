@@ -89,17 +89,8 @@ class projectActions extends sfActions
         {
           return sfView::ERROR;
         }
-        $pj_obj = new LibProject(array(
-                    'is_mac' => sfConfig::get('ideexec_mac'),
-                    'is_simulation_open' => sfConfig::get('ideexec_simulation_open'),
-                    'is_simulation_write' => sfConfig::get('ideexec_simulation_write'),
-                    'is_simulation_git' => sfConfig::get('ideexec_simulation_git'),
-                    'is_simulation_user' => sfConfig::get('ideexec_simulation_user'),
-                    'is_noexec_user' => sfConfig::get('ideexec_noexec_user'),
-                    'default_user' => sfConfig::get('ideexec_defaultuser')
-                ));
-
-        $pj_obj->createRepositoryAtLocal($this->getUser()->getGuardUser()->getUsername(), $form->getValue('name'), false);
+       
+        TogaFilesystem::createProject($this,$this->getUser()->getGuardUser()->getUsername(), $form->getValue('name'));
 
         $lang_obj = new IdeLanguage();
 
@@ -112,19 +103,8 @@ class projectActions extends sfActions
           $this->generateProjectRoR($request, $form);
         }
 
-        $mysql_obj = new LibProjectMysql(array(
-                    'is_mac' => sfConfig::get('ideexec_mac'),
-                    'is_simulation_open' => sfConfig::get('ideexec_simulation_open'),
-                    'is_simulation_write' => sfConfig::get('ideexec_simulation_write'),
-                    'is_simulation_git' => sfConfig::get('ideexec_simulation_git'),
-                    'is_simulation_user' => sfConfig::get('ideexec_simulation_user'),
-                    'is_noexec_user' => sfConfig::get('ideexec_noexec_user'),
-                    'is_noexec_db' => sfConfig::get('ideexec_noexec_db'),
-                    'default_user' => sfConfig::get('ideexec_defaultuser')
-                ));
 
-        $mysql_obj->init($this->getUser()->getGuardUser()->getUsername());
-        $mysql_obj->createDb($this->getUser()->getGuardUser()->getUsername(), $form->getValue('name'), 0);
+        TogaMysql::createDb($this,$this->getUser()->getGuardUser()->getUsername(), $form->getValue('name'), 0);
         //add to db
         $db_obj = new IdeProject();
         $ide_project = $db_obj->newProject($form, $this->getUser());
@@ -150,21 +130,12 @@ class projectActions extends sfActions
   protected function generateProjectSymfony(sfWebRequest $request, sfForm $form)
   {
 
-    $sf_obj = new LibProjectSymfony(array(
-                'is_mac' => sfConfig::get('ideexec_mac'),
-                'is_simulation_open' => sfConfig::get('ideexec_simulation_open'),
-                'is_simulation_write' => sfConfig::get('ideexec_simulation_write'),
-                'is_simulation_git' => sfConfig::get('ideexec_simulation_git'),
-                'is_simulation_user' => sfConfig::get('ideexec_simulation_user'),
-                'is_noexec_user' => sfConfig::get('ideexec_noexec_user'),
-                'default_user' => sfConfig::get('ideexec_defaultuser')
-            ));
-    $sf_obj->init($this->getUser()->getGuardUser()->getUsername(), $form->getValue('name'));
-    $sf_obj->createProject($this->getUser()->getGuardUser()->getUsername(), $form->getValue('name'));
-    $sf_obj->generateApp("frontend");
-    $sf_obj->generateModule("frontend", "sandbox");
-    $sf_obj->deployVirtualHost($this->getUser()->getGuardUser()->getUsername(), $form->getValue('name'), sfConfig::get('ideexec_subdomain'));
-    $sf_obj->generateDBYml($this->getUser()->getGuardUser()->getUsername(), $form->getValue('name'), 0, $this->getUser()->getGuardUser()->getId());
+    TogaSymfony14Command::generateProject($this,$this->getUser()->getGuardUser()->getUsername(), $form->getValue('name'));
+    TogaSymfony14Command::generateApp($this,$this->getUser()->getGuardUser()->getUsername(), $form->getValue('name'),"frontend");
+    TogaSymfony14Command::generateModule($this,$this->getUser()->getGuardUser()->getUsername(), $form->getValue('name'),"frontend","sandbox");
+    TogaSymfony14Apache::deployVirtualHost($this,$this->getUser()->getGuardUser()->getUsername(), $form->getValue('name'));
+    TogaSymfony14Command::generateDBYml($this,$this->getUser()->getGuardUser()->getUsername(), $form->getValue('name'), 0, $this->getUser()->getGuardUser()->getId());
+
   }
 
   protected function generateProjectRoR(sfWebRequest $request, sfForm $form)

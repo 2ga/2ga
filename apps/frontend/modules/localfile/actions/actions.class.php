@@ -183,18 +183,13 @@ if('dir' == $type){
         if(''!=$pathparts[0]){
           return "You must start from /";
         }
-        if('home'!=$pathparts[1] && 'Users'!=$pathparts[1]){
+        if(!preg_match('{' . TogaSettings::getDataDir() . '/*}', $path)){
           return $path . "is not in home";
         }
         if(0!=  preg_match('{/[.]{2,}?/}', $path)){
           return "You cannot go up";
         }
-        //pass is in sim
-        if(false==sfConfig::get('ideexec_simulation_open')){
-        if("ide-" . $this->getUser()->getGuardUser()->getUsername() !=  $pathparts[2]){
-          //return "You cannot access other accoutnts file";
-        }
-        } 
+
         return null;
     }
 }

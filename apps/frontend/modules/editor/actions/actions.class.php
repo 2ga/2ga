@@ -24,20 +24,12 @@ class editorActions extends sfActions
     $this->pj_detail=$db_obj->getDetail($request->getParameter('project'));
     $this->project_id=escapeshellcmd($request->getParameter('project'));
     $this->ide_project = Doctrine_Core::getTable('IdeProject')->find(array($request->getParameter('project')));
-    $user= "ide-" . $this->getUser()->getGuardUser()->getUsername();
+    $user= $this->getUser()->getGuardUser()->getUsername();
     $mes = '<ul id="treeData" style="display:none;">';
-    if(true==sfConfig::get('ideexec_simulation_open')){
-      $user=sfConfig::get('ideexec_defaultuser');
-      if(true==sfConfig::get('ideexec_mac')){
-        $mes = $mes . $this->getFileTree('/Users/' . $user . '/IDEProject/' . $this->ide_project->getName());
-      }else{
-        $mes = $mes . $this->getFileTree('/home/' . $user . '/IDEProject/' . $this->ide_project->getName());
-      }
-    }else{
-     $mes = $mes . $this->getFileTree('/home/' . $user . '/IDEProject/' . $this->ide_project->getName());
-    }
+    $mes = $mes . $this->getFileTree(TogaSettings::getDataDir() . '/users/' . $user . '/projects/' . $this->ide_project->getName());
     $mes = $mes . "</ul>";
    
+
     $this->files=$mes;
     //echo '/home/' . $user . '/IDEProject/' . $this->ide_project->getName();
     //exit;
