@@ -28,8 +28,7 @@ class TogaSymfony14Apache
       $body .= "  </Directory>\n";
       $body .= "</VirtualHost>";
 
-      $libfs = new LibFileSystem();
-      $libfs->makeFile(TogaSettings::getDataDir() . "/tmp/conf/$userName$projectName.conf", $body);
+      TogaFilesystem::writeFile($controller,TogaSettings::getDataDir() . "/tmp/conf/$userName$projectName.conf", $body);
       exec("mv " . TogaSettings::getDataDir() . "/tmp/conf/$userName$projectName.conf " . TogaSettings::getDataDir() . "/settings/sites-available/$userName$projectName.conf");
       //exec("chown root:root " .  TogaSettings::getDataDir() . "/settings/sites-available/$userName$projectName.conf");
       exec("chmod 644 " . TogaSettings::getDataDir() . "/settings/sites-available/$userName$projectName.conf");
