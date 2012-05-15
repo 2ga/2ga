@@ -42,8 +42,7 @@ class TogaSymfony14Command
     $body .= "      username: " . $userName . "\n";
     $body .= "      password: " . $account[0]["mysqlpw"] . "\n";
 
-    $libfs = new LibFileSystem();
-    $libfs->makeFile(TogaSettings::getDataDir() . "/users/" . $userName . "/projects/" . $projectName . "/config/databases.yml", $body);
+    TogaFilesystem::writeFile($controller,TogaSettings::getDataDir() . "/users/" . $userName . "/projects/" . $projectName . "/config/databases.yml", $body);
   }
 
   static function generateApp($controller,$userName, $projectName, $controllerName)
