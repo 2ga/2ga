@@ -18,7 +18,7 @@ class TogaFilesystem
 
     try
     {
-      if (!self::isValidPath($path))
+      if (!self::checkPath($path))
       {
         $e = 'Arg(s) invalid:' . $path . $permission;
         throw new Exception($e);
