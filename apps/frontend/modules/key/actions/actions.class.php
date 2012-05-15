@@ -87,7 +87,7 @@ class keyActions extends sfActions
       }
 
       
-      $pubkey=  TogaKeypair::Generate($this, $form->getValue('name'),  $this->getUser()->getGuardUser()->getEmailAddress, $this->getUser()->getGuardUser()->getUsername());
+      $pubkey=  TogaKeypair::Generate($this, $form->getValue('name'),  $this->getUser()->getGuardUser()->getEmailAddress(), $this->getUser()->getGuardUser()->getUsername());
       //$pubkey=$form->getValue('name');
       $ide_key= $db_obj->newKey($form,$this->getUser()->getGuardUser()->getId(),$pubkey);
       }else{
