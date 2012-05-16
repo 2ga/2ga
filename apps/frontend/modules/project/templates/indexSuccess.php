@@ -22,8 +22,8 @@
       <td><?php echo $ide_project->getUpdatedAt() ?></td>
       <td><a href="<?php echo url_for('deploy/index?project='.$ide_project->getId()) ?>">Deploy</a></td>
       <td><a href="<?php echo url_for('editor/index?project='.$ide_project->getId()) ?>">Edit</a></td>
-      <td><a href="<?php echo url_for("http://" . $ide_project->getName() . "." . $myname  . ".". $subdomain . ".mydomain.com") ?>">Demo</a></td>
-      <td><a href="<?php echo url_for("http://" . $ide_project->getName() . "." . $myname  . ".". $subdomain . ".mydomain.com") ?>">Debug</a></td>
+      <td><a href="<?php echo url_for("http://" . $ide_project->getName() . "." . $myname  . ".". TogaSettings::getServerDomain()) ?>">Demo</a></td>
+      <td><a href="<?php echo url_for("http://" . $ide_project->getName() . "." . $myname  . ".". TogaSettings::getServerDomain()) . "/frontend_dev.php" ?>">Debug</a></td>
     </tr>
     <?php endforeach; ?>
   </tbody>
