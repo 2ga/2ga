@@ -52,16 +52,8 @@ class localfileActions extends sfActions
           $this->msg=$msg;
           return sfView::ERROR;
         }
-        $fs_obj=new LibFileSystem(array(
-        'is_mac' => sfConfig::get('ideexec_mac'),
-        'is_simulation_open' => sfConfig::get('ideexec_simulation_open'),
-        'is_simulation_write' => sfConfig::get('ideexec_simulation_write'),
-        'is_simulation_git' => sfConfig::get('ideexec_simulation_git'),
-        'is_simulation_user' => sfConfig::get('ideexec_defaultuser'),
-        'default_user' => ''
-    ));
-         
-        $fs_obj->makeFile(escapeshellcmd($path), $body);
+
+        TogaFilesystem::writeFile($this, escapeshellcmd($path), $body);
         
         $this->data= "OK";
  }
@@ -78,18 +70,11 @@ class localfileActions extends sfActions
           $this->msg=$msg;
           return sfView::ERROR;
         }
-        $fs_obj=new LibFileSystem(array(
-        'is_mac' => sfConfig::get('ideexec_mac'),
-        'is_simulation_open' => sfConfig::get('ideexec_simulation_open'),
-        'is_simulation_write' => sfConfig::get('ideexec_simulation_write'),
-        'is_simulation_git' => sfConfig::get('ideexec_simulation_git'),
-        'is_simulation_user' => sfConfig::get('ideexec_defaultuser'),
-        'default_user' => ''
-    ));
+        
 if('dir' == $type){
-        $fs_obj->removeDir(escapeshellcmd($path));
+  TogaFilesystem::rmDir($this, escapeshellcmd($path));
 }else{
-  $fs_obj->removeFile(escapeshellcmd($path));
+  TogaFilesystem::rm($this, escapeshellcmd($path));
 }
         $this->data= "OK";
  }
@@ -105,16 +90,8 @@ if('dir' == $type){
           $this->msg=$msg;
           return sfView::ERROR;
         }
-        $fs_obj=new LibFileSystem(array(
-        'is_mac' => sfConfig::get('ideexec_mac'),
-        'is_simulation_open' => sfConfig::get('ideexec_simulation_open'),
-        'is_simulation_write' => sfConfig::get('ideexec_simulation_write'),
-        'is_simulation_git' => sfConfig::get('ideexec_simulation_git'),
-        'is_simulation_user' => sfConfig::get('ideexec_defaultuser'),
-        'default_user' => ''
-    ));
-         
-        $fs_obj->makeFile(escapeshellcmd($path));
+        
+        TogaFilesystem::writeFile($this, $path);
         
         $this->data= "OK";
  }
@@ -129,17 +106,9 @@ if('dir' == $type){
           $this->msg=$msg;
           return sfView::ERROR;
         }
-        $fs_obj=new LibFileSystem(array(
-        'is_mac' => sfConfig::get('ideexec_mac'),
-        'is_simulation_open' => sfConfig::get('ideexec_simulation_open'),
-        'is_simulation_write' => sfConfig::get('ideexec_simulation_write'),
-        'is_simulation_git' => sfConfig::get('ideexec_simulation_git'),
-        'is_simulation_user' => sfConfig::get('ideexec_simulation_user'),
-        'default_user' => sfConfig::get('ideexec_defaultuser')
-    ));
-         
-        $fs_obj->makeDir(escapeshellcmd($path));
         
+        TogaFilesystem::mkDir($this, escapeshellcmd($path));
+
         $this->data= "OK";
  }
  
@@ -161,16 +130,9 @@ if('dir' == $type){
           return sfView::ERROR;
         }
         
-        $fs_obj=new LibFileSystem(array(
-        'is_mac' => sfConfig::get('ideexec_mac'),
-        'is_simulation_open' => sfConfig::get('ideexec_simulation_open'),
-        'is_simulation_write' => sfConfig::get('ideexec_simulation_write'),
-        'is_simulation_git' => sfConfig::get('ideexec_simulation_git'),
-        'is_simulation_user' => sfConfig::get('ideexec_simulation_user'),
-        'default_user' => sfConfig::get('ideexec_defaultuser')
-    ));
+
          
-        $fs_obj->moveFile(escapeshellcmd($from), escapeshellcmd($to));
+        TogaFilesystem::mv($this, escapeshellcmd($from), escapeshellcmd($to));
         
         $this->data= "OK";
  }
