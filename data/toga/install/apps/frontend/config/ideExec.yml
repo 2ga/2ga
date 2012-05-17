@@ -1,0 +1,9 @@
+all:
+  defaultuser: 
+  subdomain: ide1
+  mac: true
+  simulation:
+    open: true
+    write: true
+  noexec:
+    user: true
