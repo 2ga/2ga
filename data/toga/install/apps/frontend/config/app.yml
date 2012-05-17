@@ -1,0 +1,23 @@
+# You can find more information about this file on the symfony website:
+# http://www.symfony-project.org/reference/1_4/en/11-App
+# default values
+all:
+  sfForkedApply:
+    from:
+      email: "%TOGA:EMAIL%"
+      fullname: "%TOGA:SENDER%"
+    routes:
+      apply: /user/new
+      reset: /user/password-reset
+      resetRequest: /user/reset-request
+      resetCancel: /user/reset-cancel
+      validate: /user/confirm/:validate
+      settings: /user/settings
+  # that section is as a fallback only
+  sfApplyPlugin:
+    from:
+      email: "%TOGA:EMAIL%"
+      fullname: "%TOGA:SENDER%"    
+  sf_guard_plugin:
+    success_signin_url: project/index
+    success_signout_url: contents/top
