@@ -34,15 +34,115 @@ echo "  Username: $smtp_uname\n";
 echo "  Password: $smtp_password\n";
 echo "TO/GA:\n";   
 echo "  BackendPassword: $backend_password\n";
-echo "  DevelopMode: $devmode\n";                                         
+echo "  DevelopMode: $devmode\n";           
 
-echo "Are you sure?(y,N)";
+echo "Have you read README.md and completely understanded the contents?\n";
+echo "It includes important information about licence and disclaimer.\n";
+echo "(y=Yes, I certify agree with the contents of README.md, N=No,I'll exit installer.)";
 $ans=fgets(STDIN,10);
 $ans=rtrim($ans, "\n");
 if("y" != $ans){
 echo "exit...\n";
 exit;
 }
+
+echo "Are you sure doing system config for installing TO/GA?(y,N)";
+$ans=fgets(STDIN,10);
+$ans=rtrim($ans, "\n");
+if("y" != $ans){
+echo "Skipped config.\n";
+}else{
+sysconf();
+}
+
+echo "Are you sure install TO/GA?(y,N)";
+$ans=fgets(STDIN,10);
+$ans=rtrim($ans, "\n");
+if("y" != $ans){
+echo "Skipped install.\n";
+}else{
+makeConfFile();
+}
+
+function sysconf(){
+extract($GLOBALS);
+//Edit sudoers
+
+//Check Duplication
+$dup = strstr (file_get_contents($sudoersPath), '# Mod by TOGA');
+if(!$dup){
+
+//go
+exec("chmod 660 " . $sudoersPath);
+$contents = @file($sudoersPath);
+$buf='';
+$done=0;
+foreach($contents as $line){
+  $target = strstr ($line, 'Defaults    requiretty');
+
+  if($target){
+    $buf=$buf . "# Mod by TOGA\n";
+    $buf=$buf . '# ' . $line;
+    $done=1;
+  }else{
+    $buf=$buf . $line;
+  }
+}
+$buf=$buf . "\n# Mod by TOGA\n";
+$buf=$buf . '%apache ALL=NOPASSWD:/etc/init.d/httpd start' . "\n";
+$buf=$buf . '%apache ALL=NOPASSWD:/etc/init.d/httpd status' . "\n";
+$buf=$buf . '%apache ALL=NOPASSWD:/etc/init.d/httpd stop' . "\n";
+$buf=$buf . '%apache ALL=NOPASSWD:/etc/init.d/httpd graceful' . "\n";
+//write
+file_put_contents($sudoersPath, $buf, LOCK_EX);
+exec("chmod 440 ". $sudoersPath);
+if($done==1){
+echo 'Config Apache privilege: Done.' . "\n";
+}else{
+echo 'Config Apache privilege: Fail.' . "\n";
+}
+}else{
+echo 'Config Apache privilege: Skipped.' . "\n";
+}
+
+
+//Edit httpd.conf
+//Check Duplication
+$dup = strstr (file_get_contents($httpdconfPath), '# Mod by TOGA');
+if(!$dup){
+
+//go
+$contents = @file($httpdconfPath);
+$buf='';
+$done=0;
+foreach($contents as $line){
+  $target = strstr ($line, "### Section 2: 'Main' server configuration");
+
+  if($target){
+    $buf=$buf . "\n# Mod by TOGA\n";
+    $buf=$buf . 'NameVirtualHost ' . $serverIp . ':' . $serverPort . "\n";
+    $buf=$buf . 'Include ' . $dataDir . '/settings/sites-enabled/*' . "\n\n";
+    $buf=$buf . $line;
+    $done=1;
+  }else{
+    $buf=$buf . $line;
+  }
+}
+//write
+file_put_contents($httpdconfPath, $buf, LOCK_EX);
+
+if($done==1){
+echo 'Config Apache Include: Done.' . "\n";
+}else{
+echo 'Config Apache Include: Fail.' . "\n";
+}
+}else{
+echo 'Config Apache Include: Skipped.' . "\n";
+}
+}
+
+function makeConfFile(){
+extract($GLOBALS);
 
 echo "Making files...\n";
 
@@ -132,5 +232,13 @@ $body = str_replace("%TOGA:SERVERPORT%", $serverPort, $body);
 $body = str_replace("%TOGA:SERVERDOMAIN%", $serverDomain, $body);
 file_put_contents($dataDir . "/settings/sites-available/main.conf", $body, LOCK_EX);
 exec("ln -s " . $dataDir . "/settings/sites-available/main.conf ". $dataDir . "/settings/sites-enabled/");
-
 echo "Done.\n";
+
+}
+echo "After this, please also do...\n";
+echo "------------------------------\n";
+echo "./symfony doctrine:build --all --and-load --no-confirmation\n";
+echo "chown -R apache:apache $appDir\n";
+echo "chown -R apache:apache $dataDir\n";
+echo "------------------------------\n";
+echo "Thank you for choosing TO/GA.\n";
