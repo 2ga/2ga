@@ -18,3 +18,5 @@ $smtp_password='seacret';
 //Please input sha1
 $backend_password='hogehogehogehoge';
 $devmode=true;
+$httpdconfPath='/etc/httpd/conf/httpd.conf';
+$sudoersPath='/etc/sudoers';
