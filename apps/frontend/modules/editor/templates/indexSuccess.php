@@ -40,7 +40,7 @@
             <div id='editor-tabs' >
               <ul></ul>
               <div class="tool-buttons">
-              	<span class="save">save</span>
+              		<span class="save">Save</span>
               </div>
             </div>
 
