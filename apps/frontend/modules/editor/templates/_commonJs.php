@@ -161,7 +161,7 @@ span.ui-icon {
 
               filecontent = getContent(data);
               var filename = node.data.title;
-              o = $('<div id = "'+ fileid + '">xyz <textarea id="' + fileid + 'editor">' + filecontent + '</textarea></div>');
+              o = $('<div id = "'+ fileid + '"><textarea id="' + fileid + 'editor">' + filecontent + '</textarea></div>');
               //console.log(o);
               $tab.append(o);
               var x = createEditor(fileid + "editor",filename,urlsave);	// suggestion.js
