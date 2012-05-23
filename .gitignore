@@ -17,7 +17,7 @@ lib/model/map/*
 lib/toga/core/base/*
 *.DS_Store
 *~
-#*#
+*#*#
 nbproject/private/
 apps/frontend/config/ideExec.yml
 apps/frontend/config/app.yml
