@@ -195,8 +195,7 @@ span.ui-icon {
             primary: "ui-icon-disk"
         }
     });
-    
-
+ 	
     // editor tabs with close icon button
     $tab = $('#editor-tabs').tabs({
     	tabTemplate: "<li><a href='#{href}'>#{label}</a> <span class='ui-icon ui-icon-close'></span></li>",
