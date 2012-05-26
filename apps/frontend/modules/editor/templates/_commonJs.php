@@ -1,7 +1,7 @@
 <style>
 
 /*style for tab close button*/
-div#editor-tabs span.ui-icon-close{
+div#editor-tabs span.ui-icon-close {
 	margin: 2px;
 }
 
@@ -9,10 +9,9 @@ div#editor-tabs span.ui-icon-close{
 	top: 60px;
 }
 
-span.ui-icon{
+span.ui-icon {
 	margin: 0px;
 }
-
 </style>
 <script type="text/javascript">
   $(function(){
@@ -162,7 +161,7 @@ span.ui-icon{
 
               filecontent = getContent(data);
               var filename = node.data.title;
-              o = $('<div id = "'+ fileid + '">xyz <textarea id="' + fileid + 'editor">' + filecontent + '</textarea></div>');
+              o = $('<div id = "'+ fileid + '"><textarea id="' + fileid + 'editor">' + filecontent + '</textarea></div>');
               //console.log(o);
               $tab.append(o);
               var x = createEditor(fileid + "editor",filename,urlsave);	// suggestion.js
@@ -170,7 +169,14 @@ span.ui-icon{
               $tab.tabs('select', "#"+fileid);
             }
           }
-        );
+          );
+
+        /* 
+         * Show Save button
+         * saxsir added. 2012/05/21
+         */
+    	$("div.tool-buttons span.save").button("enable");
+	  	$("div.tool-buttons span.save").show();
         }
                             
       });
@@ -189,6 +195,7 @@ span.ui-icon{
             primary: "ui-icon-disk"
         }
     });
+    
 
     // editor tabs with close icon button
     $tab = $('#editor-tabs').tabs({
@@ -200,6 +207,16 @@ span.ui-icon{
     	var index = $( "li", $tab ).index( $( this ).parent() );
 		$tab.tabs( "remove", index );
 		console.log("index: " + index);
+
+		/*
+		 * Hide Save button.(If there are NOT tabs.)
+		 * saxsir added. 2012/05/21
+		 */
+	    var remaning_tabs = $tab.tabs("length");
+    	if(remaning_tabs == 0) {
+		$("div.tool-buttons span.save").button("disable");
+		$("div.tool-buttons span.save").hide();
+    	}
     });
 
     
