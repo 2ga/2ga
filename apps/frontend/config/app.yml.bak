@@ -1,0 +1,4 @@
+all:
+  signup_password:
+    required: false
+    password: 123456
