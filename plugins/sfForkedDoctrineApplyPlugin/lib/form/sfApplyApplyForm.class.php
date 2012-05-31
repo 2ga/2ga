@@ -4,10 +4,9 @@
  * Form for account apply, allows to create profile (sfGuardUserProfile) and account (sfGuardUser)
  * @author fizyk
  */
-class sfApplyApplyForm extends sfGuardUserProfileForm
-{    
-    public function configure()
-    {
+class sfApplyApplyForm extends sfGuardUserProfileForm {
+
+    public function configure() {
         parent::configure();
 
         $this->removeFields();
@@ -25,33 +24,27 @@ class sfApplyApplyForm extends sfGuardUserProfileForm
         // you output the forms consecutively you have to manage your
         // own transactions. Adding two fields to the profile form
         // is definitely simpler.
-
-
         //Setting username widget
-        $this->setWidget( 'username',
-                new sfWidgetFormInput( array(), array( 'maxlength' => 16 ) ) );
+        $this->setWidget('username', new sfWidgetFormInput(array(), array('maxlength' => 16)));
         $this->widgetSchema->moveField('username', sfWidgetFormSchema::FIRST);
 
         //Setting password widgets
-        $this->setWidget( 'password', 
-                new sfWidgetFormInputPassword( array(), array('maxlength' => 128) ) );
+        $this->setWidget('password', new sfWidgetFormInputPassword(array(), array('maxlength' => 128)));
         $this->widgetSchema->moveField('password', sfWidgetFormSchema::AFTER, 'username');
 
-        $this->setWidget('password2', 
-                new sfWidgetFormInputPassword( array(), array('maxlength' => 128) ) );
+        $this->setWidget('password2', new sfWidgetFormInputPassword(array(), array('maxlength' => 128)));
         $this->widgetSchema->moveField('password2', sfWidgetFormSchema::AFTER, 'password');
 
         //Settings for email fields
-        $this->setWidget( 'email', new sfWidgetFormInputText( array(), array('maxlength' => 255 ) ) );
-        $this->setWidget('email2', 
-                new sfWidgetFormInputText( array(), array('maxlength' => 255 ) ) );
-        $this->widgetSchema->moveField( 'email2', sfWidgetFormSchema::AFTER, 'email' );
+        $this->setWidget('email', new sfWidgetFormInputText(array(), array('maxlength' => 255)));
+        $this->setWidget('email2', new sfWidgetFormInputText(array(), array('maxlength' => 255)));
+        $this->widgetSchema->moveField('email2', sfWidgetFormSchema::AFTER, 'email');
 
         //Firstname and lastname
-        $this->setWidget( 'firstname', new sfWidgetFormInputText( array(), array( 'maxlength' => 30 ) ) );
-        $this->setWidget( 'lastname', new sfWidgetFormInputText( array(), array( 'maxlength' => 70 ) ) );
+        $this->setWidget('firstname', new sfWidgetFormInputText(array(), array('maxlength' => 30)));
+        $this->setWidget('lastname', new sfWidgetFormInputText(array(), array('maxlength' => 70)));
 
-        $this->widgetSchema->setLabels( array(
+        $labels = array(
             'username' => 'Username',
             'password' => 'Password',
             'password2' => 'Confirm password',
@@ -59,7 +52,23 @@ class sfApplyApplyForm extends sfGuardUserProfileForm
             'email2' => 'Confirm email',
             'firstname' => 'First Name',
             'lastname' => 'Last name'
-        ) );
+        );
+
+
+        // Signup Password
+        $signup_password_required = sfConfig::get('app_signup_password_required');
+        $signup_password = sfConfig::get('app_signup_password_password');
+        if (is_null($signup_password)) {
+            $signup_password_required = false;
+        }
+
+        if ($signup_password_required) {
+            $this->setWidget('signup_password', new sfWidgetFormInputText(array(), array('maxlength' => 30)));
+            $labels['signup_password'] = 'Signup Password';
+        }
+
+        $this->widgetSchema->setLabels($labels);
+
 
         $this->widgetSchema->setNameFormat('sfApplyApply[%s]');
         $this->widgetSchema->setFormFormatterName('list');
@@ -69,63 +78,76 @@ class sfApplyApplyForm extends sfGuardUserProfileForm
         // rest of the user profile come from the schema and from the
         // developer's form subclass
 
-        $this->setValidator( 'username', new sfValidatorApplyUsername() );
+        $this->setValidator('username', new sfValidatorApplyUsername());
 
-        $this->setValidator( 'password', new sfValidatorApplyPassword() );
-        $this->setValidator( 'password2', new sfValidatorApplyPassword() );
+        $this->setValidator('password', new sfValidatorApplyPassword());
+        $this->setValidator('password2', new sfValidatorApplyPassword());
 
         // Be aware that sfValidatorEmail doesn't guarantee a string that is preescaped for HTML purposes.
         // If you choose to echo the user's email address somewhere, make sure you escape entities.
         // <, > and & are rare but not forbidden due to the "quoted string in the local part" form of email address
         // (read the RFC if you don't believe me...).
 
-        $this->setValidator('email', new sfValidatorAnd( array(
-            new sfValidatorEmail( array('required' => true, 'trim' => true) ),
-            new sfValidatorString( array('required' => true, 'max_length' => 255) ),
-            new sfValidatorDoctrineUnique(
-                    array('model' => 'sfGuardUser', 'column' => 'email_address'),
-                    array('invalid' => 'An account with that email address already exists. If you have forgotten your password, click "cancel", then "Reset My Password."') )
-        )));
+        $this->setValidator('email', new sfValidatorAnd(array(
+                    new sfValidatorEmail(array('required' => true, 'trim' => true)),
+                    new sfValidatorString(array('required' => true, 'max_length' => 255)),
+                    new sfValidatorDoctrineUnique(
+                            array('model' => 'sfGuardUser', 'column' => 'email_address'),
+                            array('invalid' => 'An account with that email address already exists. If you have forgotten your password, click "cancel", then "Reset My Password."'))
+                )));
 
-        $this->setValidator('email2', new sfValidatorEmail( 
-                array( 'required' => true, 'trim' => true )));
+        $this->setValidator('email2', new sfValidatorEmail(
+                        array('required' => true, 'trim' => true)));
 
-        
-        $this->setValidator('firstname', new sfValidatorApplyFirstname() );
-        
-        $this->setValidator('lastname', new sfValidatorApplyLastname() );
+
+        $this->setValidator('firstname', new sfValidatorApplyFirstname());
+
+        $this->setValidator('lastname', new sfValidatorApplyLastname());
+
+        if ($signup_password_required) {
+
+            function check_password_callback($validator, $value, $arguments) {
+                if ($value != $arguments['password']) {
+                    throw new sfValidatorError($validator, 'Wrong Password');
+                }
+            }
+
+            $this->setValidator('signup_password', new sfValidatorAnd(array(
+                        new sfValidatorString(array('required' => true)),
+                        new sfValidatorCallback(array(
+                            'callback' => 'check_password_callback',
+                            'arguments' => array('password' => $signup_password)
+                        )))));
+        }
 
         $schema = $this->validatorSchema;
 
         // Hey Fabien, adding more postvalidators is kinda verbose!
         $preValidator = $schema->getPreValidator();
 
-        $preValidators = array( 
-            new sfValidatorSchemaCompare( 'password', sfValidatorSchemaCompare::EQUAL,
-                    'password2', array(), array('invalid' => 'The passwords did not match.') ),
-            new sfValidatorSchemaCompare( 'email', sfValidatorSchemaCompare::EQUAL,
-                    'email2', array(), array('invalid' => 'The email addresses did not match.') ) );
+        $preValidators = array(
+            new sfValidatorSchemaCompare('password', sfValidatorSchemaCompare::EQUAL,
+                    'password2', array(), array('invalid' => 'The passwords did not match.')),
+            new sfValidatorSchemaCompare('email', sfValidatorSchemaCompare::EQUAL,
+                    'email2', array(), array('invalid' => 'The email addresses did not match.')));
 
-        if( $preValidator )
-        {
+        if ($preValidator) {
             $preValidators[] = $preValidator;
         }
 
         //Include captcha if enabled
-        if ($this->isCaptchaEnabled() )
-        {
+        if ($this->isCaptchaEnabled()) {
             $this->addCaptcha();
         }
 
-        $this->validatorSchema->setPreValidator( new sfValidatorAnd($preValidators) );
+        $this->validatorSchema->setPreValidator(new sfValidatorAnd($preValidators));
     }
-  
-    public function doSave($con = null)
-    {
+
+    public function doSave($con = null) {
         $user = new sfGuardUser();
         $user->setUsername($this->getValue('username'));
         $user->setPassword($this->getValue('password'));
-        $user->setEmailAddress( $this->getValue('email') );
+        $user->setEmailAddress($this->getValue('email'));
         // They must confirm their account first
         $user->setIsActive(false);
         $user->save();
@@ -134,9 +156,7 @@ class sfApplyApplyForm extends sfGuardUserProfileForm
         return parent::doSave($con);
     }
 
-
-    protected function removeFields()
-    {
+    protected function removeFields() {
 
         // We're making a new user or editing the user who is
         // logged in. In neither case is it appropriate for
@@ -144,9 +164,7 @@ class sfApplyApplyForm extends sfGuardUserProfileForm
         // also doesn't get to modify the validate field which
         // is part of how their account is verified by email.
 
-        unset($this['user_id'], $this['validate'], $this['validate_at'],
-                $this['created_at'], $this['updated_at'], $this['email_new']);
-
+        unset($this['user_id'], $this['validate'], $this['validate_at'], $this['created_at'], $this['updated_at'], $this['email_new']);
     }
 
 }
