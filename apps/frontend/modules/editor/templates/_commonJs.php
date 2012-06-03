@@ -199,7 +199,7 @@ span.ui-icon {
 
     // editor tabs with close icon button
     $tab = $('#editor-tabs').tabs({
-    	tabTemplate: "<li><a href='#{href}'>#{label}</a> <span class='ui-icon ui-icon-close'></span></li>",
+    	tabTemplate: "<li><a href='#{href}'>#{label}</a><span class='ui-icon ui-icon-close'></span></li>",
     });
 
     // close tab function

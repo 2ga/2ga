@@ -60,6 +60,12 @@ var createEditor = (function (editorid,filename,url) {
         return startComplete();
       }
                                        
+    },
+    onChange: function(){
+    	//console.log(changed.);
+    	if($("#editor-tabs li.ui-tabs-selected a")[0].firstChild.className != "unsaved"){
+    		$("#editor-tabs li.ui-tabs-selected")[0].firstChild.innerHTML = '<span class="unsaved">*</span>' + $("#editor-tabs li.ui-tabs-selected")[0].firstChild.innerHTML;
+    	}
     }
   });
     
@@ -295,8 +301,11 @@ function savefile(url,editor){
             data: {body: editor.getValue() },
             success: function(data) { }
         });
-
-        
+    
+        	if($("#editor-tabs li.ui-tabs-selected a")[0].firstChild.className == "unsaved"){
+        		//console.log("removed span.unsaved");
+        		$("#editor-tabs li.ui-tabs-selected span.unsaved").remove();
+        	}
         
 //        var X= new XMLHttpRequest;
 //        X.open('POST', newurl, true);
