@@ -105,6 +105,18 @@ var createEditor = (function (editorid,filename,url) {
         }
     });
     
+    // Save button clicked.
+	$("div.tool-buttons span.save").click(
+			function() {
+				//console.log(editor.getWrapperElement().parentNode.className.replace( /(?:^[\x09\x0A\x0C\x0D\x20]+)|(?:[\x09\x0A\x0C\x0D\x20]+$)/g, "").split( /[\x09\x0A\x0C\x0D\x20]+/ ));
+				var className = editor.getWrapperElement().parentNode.className;
+				if (className.search(/ui-tabs-hide/i) == -1) {
+					savefile(url, editor);
+					console.log("saved.");
+				}
+			});
+
+    
     var allVar = [];
     var allCom = {};
     var allClass = [];
