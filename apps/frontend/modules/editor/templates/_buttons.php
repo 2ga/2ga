@@ -1,4 +1,4 @@
-<?php if('git'==$vcs): ?>
+    <?php if('git'==$vcs): ?>
 <div class="jquery-ui-button">
   <div id="openfile"><button id="openfile">open<br><span class="ui-icon ui-icon-document" id="openfile" title="new"></span></button></div>
   <div id="easycommit"><button id="easycommit">Easy Commit<br><span class="ui-icon ui-icon-circle-arrow-n" title="upload"></span></button></div>
