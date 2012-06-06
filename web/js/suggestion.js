@@ -374,14 +374,12 @@ function savefile(url,editor){
         success: function(data) { }
     });
 
-        
-        
-//        var X= new XMLHttpRequest;
-//        X.open('POST', newurl, true);
-//        X.onreadystatechange = function() {//Call a function when the state changes.
-//            console.log(X.readyState);
-//            if(X.readyState == 4) {
-//		alert(X.responseText);
-//            }
-//        }
+	//        var X= new XMLHttpRequest;
+	//        X.open('POST', newurl, true);
+	//        X.onreadystatechange = function() {//Call a function when the state changes.
+	//            console.log(X.readyState);
+	//            if(X.readyState == 4) {
+	//		alert(X.responseText);
+	//            }
+	//        }
 }
