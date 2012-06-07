@@ -1,5 +1,6 @@
 <script type="text/javascript">
   $(function(){
+      
    
     //GROUP:FRAMEWORK
     $( "#addmodule" ).click(function() {
