@@ -18,7 +18,7 @@ lib/toga/core/base/*
 *.DS_Store
 *~
 *#*#
-nbproject/private/
+nbproject/*
 apps/frontend/config/ideExec.yml
 apps/frontend/config/app.yml
 apps/frontend/config/factories.yml
