@@ -12,20 +12,25 @@
  */
 class IdeLanguage extends BaseIdeLanguage
 {
-      public function getShortname($id)
-  {
-   
-           $q = Doctrine_Query::create()
-                    ->select('a.*')
-                    ->from('IdeLanguage a')
-                    ->where('a.id = ?', $id);
 
-        $account = $q->fetchArray();
-    
-        if(0<count($account)){
-          return $account[0]["shortname"];
-        }else{
-          return null;
-        }
+  public function getShortname($id)
+  {
+
+    $q = Doctrine_Query::create()
+            ->select('a.*')
+            ->from('IdeLanguage a')
+            ->where('a.id = ?', $id);
+
+    $account = $q->fetchArray();
+
+    if (0 < count($account))
+    {
+      return $account[0]["shortname"];
+    }
+    else
+    {
+      return null;
+    }
   }
+
 }

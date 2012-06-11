@@ -1,5 +1,7 @@
 CodeMirror.runMode = function(string, modespec, callback) {
-  var mode = CodeMirror.getMode({indentUnit: 2}, modespec);
+  var mode = CodeMirror.getMode({
+    indentUnit: 2
+  }, modespec);
   var isNode = callback.nodeType == 1;
   if (isNode) {
     var node = callback, accum = [];

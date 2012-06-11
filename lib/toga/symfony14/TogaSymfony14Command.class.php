@@ -13,21 +13,20 @@
 class TogaSymfony14Command
 {
 
-  static function generateProject($controller,$userName, $projectName)
+  static function generateProject($controller, $userName, $projectName)
   {
-      try
+    try
     {
-    exec ("cd " . TogaSettings::getDataDir() . "/users/" . $userName . "/projects/" . $projectName . "; " . TogaSettings::getAppDir() . "/lib/vendor/symfony/data/bin/symfony generate:project " . $projectName);
-    exec("ln -s " . TogaSettings::getAppDir() . "/lib/vendor/symfony/data/web/sf " . TogaSettings::getDataDir() . "/users/" . $userName . "/projects/" . $projectName . "/web/sf");      
+      exec("cd " . TogaSettings::getDataDir() . "/users/" . $userName . "/projects/" . $projectName . "; " . TogaSettings::getAppDir() . "/lib/vendor/symfony/data/bin/symfony generate:project " . $projectName);
+      exec("ln -s " . TogaSettings::getAppDir() . "/lib/vendor/symfony/data/web/sf " . TogaSettings::getDataDir() . "/users/" . $userName . "/projects/" . $projectName . "/web/sf");
     }
     catch (Exception $e)
     {
       $controller->logMessage('{TOGA} ' . $e->getMessage(), 'err');
-    }  
-    
+    }
   }
 
-  static function generateDBYml($controller,$userName, $projectName, $num, $user_id)
+  static function generateDBYml($controller, $userName, $projectName, $num, $user_id)
   {
     //find mysql
 
@@ -49,10 +48,10 @@ class TogaSymfony14Command
     $body .= "      username: " . $userName . "\n";
     $body .= "      password: " . $account[0]["mysqlpw"] . "\n";
 
-    TogaFilesystem::writeFile($controller,TogaSettings::getDataDir() . "/users/" . $userName . "/projects/" . $projectName . "/config/databases.yml", $body);
+    TogaFilesystem::writeFile($controller, TogaSettings::getDataDir() . "/users/" . $userName . "/projects/" . $projectName . "/config/databases.yml", $body);
   }
 
-  static function generateApp($controller,$userName, $projectName, $controllerName)
+  static function generateApp($controller, $userName, $projectName, $controllerName)
   {
     try
     {
@@ -64,7 +63,7 @@ class TogaSymfony14Command
     }
   }
 
-  static function generateModule($controller,$userName, $projectName, $controllerName, $moduleName)
+  static function generateModule($controller, $userName, $projectName, $controllerName, $moduleName)
   {
     try
     {
@@ -76,7 +75,7 @@ class TogaSymfony14Command
     }
   }
 
-  static function clearCache($controller,$userName, $projectName)
+  static function clearCache($controller, $userName, $projectName)
   {
 
     try

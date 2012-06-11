@@ -7,13 +7,15 @@
  */
 class IdeKeyTable extends Doctrine_Table
 {
-    /**
-     * Returns an instance of this class.
-     *
-     * @return object IdeKeyTable
-     */
-    public static function getInstance()
-    {
-        return Doctrine_Core::getTable('IdeKey');
-    }
+
+  /**
+   * Returns an instance of this class.
+   *
+   * @return object IdeKeyTable
+   */
+  public static function getInstance()
+  {
+    return Doctrine_Core::getTable('IdeKey');
+  }
+
 }

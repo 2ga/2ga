@@ -13,7 +13,7 @@
 class TogaKeypair
 {
 
-  static function Generate($controller,$name, $email, $user)
+  static function Generate($controller, $name, $email, $user)
   {
 
     try
@@ -22,9 +22,9 @@ class TogaKeypair
       exec($query);
 
       $path = TogaSettings::getDataDir() . '/users/' . $user . '/.ssh/id_rsa_' . $name;
-      TogaFilesystem::chmod($controller,$path, '600');
+      TogaFilesystem::chmod($controller, $path, '600');
 
-      return TogaFilesystem::getContent($controller,$path . '.pub');
+      return TogaFilesystem::getContent($controller, $path . '.pub');
     }
     catch (Exception $e)
     {

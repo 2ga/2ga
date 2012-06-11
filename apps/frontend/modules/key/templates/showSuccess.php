@@ -21,6 +21,6 @@
 
 <hr />
 
-<a href="<?php echo url_for('key/edit?id='.$ide_key->getId()) ?>">Edit</a>
+<a href="<?php echo url_for('key/edit?id=' . $ide_key->getId()) ?>">Edit</a>
 &nbsp;
 <a href="<?php echo url_for('key/index') ?>">List</a>

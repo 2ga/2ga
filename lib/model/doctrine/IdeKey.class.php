@@ -13,7 +13,7 @@
 class IdeKey extends BaseIdeKey
 {
 
-  function newKey($data,$userid,$pubkey)
+  function newKey($data, $userid, $pubkey)
   {
 
     //regist to db
@@ -29,19 +29,19 @@ class IdeKey extends BaseIdeKey
 
     return $key;
   }
-  
-    function newDefaultKey($uname,$pubkey)
+
+  function newDefaultKey($uname, $pubkey)
   {
-      
+
     //find user
 
-           $q = Doctrine_Query::create()
-                    ->select('a.id')
-                    ->from('SfGuardUser a')
-                    ->where('a.username = ?', $uname);
+    $q = Doctrine_Query::create()
+            ->select('a.id')
+            ->from('SfGuardUser a')
+            ->where('a.username = ?', $uname);
 
     $account = $q->fetchArray();
-     
+
     //regist to db
     $key = new IdeKey();
     $key->setName("Default");
@@ -55,56 +55,62 @@ class IdeKey extends BaseIdeKey
 
     return $key;
   }
-  
-      function newMysqlDB($uname,$pw)
+
+  function newMysqlDB($uname, $pw)
   {
     //find user
 
-           $q = Doctrine_Query::create()
-                    ->select('a.id')
-                    ->from('SfGuardUser a')
-                    ->where('a.username = ?', $uname);
+    $q = Doctrine_Query::create()
+            ->select('a.id')
+            ->from('SfGuardUser a')
+            ->where('a.username = ?', $uname);
 
     $account = $q->fetchArray();
-    
-        $q = Doctrine_Query::create()
-                ->update('SfGuardUserProfile a');
-        $q->set('a.mysqlpw', '?', $pw);
-        $q->where('a.user_id=?', $account[0]["id"]);
-        $q->execute();
+
+    $q = Doctrine_Query::create()
+            ->update('SfGuardUserProfile a');
+    $q->set('a.mysqlpw', '?', $pw);
+    $q->where('a.user_id=?', $account[0]["id"]);
+    $q->execute();
   }
-  
-      function hasAccess($id,$user)
+
+  function hasAccess($id, $user)
   {
-        $q = Doctrine_Query::create()
-                    ->select('a.id')
-                    ->from('IdeKey a')
-                    ->where('a.id = ?', $id)
-                    ->andWhere('a.ide_user_id = ?', $user);
+    $q = Doctrine_Query::create()
+            ->select('a.id')
+            ->from('IdeKey a')
+            ->where('a.id = ?', $id)
+            ->andWhere('a.ide_user_id = ?', $user);
 
     $account = $q->fetchArray();
     if (count($account) > 0)
     {
       return true;
-    }else{
+    }
+    else
+    {
       return false;
     }
   }
 
-   function isNameExist($name,$user){
-     $q = Doctrine_Query::create()
-                    ->select('a.*')
-                    ->from('IdeKey a')
-                    ->where('a.name = ?', $name)
-                    ->andWhere('a.ide_user_id = ?', $user);
+  function isNameExist($name, $user)
+  {
+    $q = Doctrine_Query::create()
+            ->select('a.*')
+            ->from('IdeKey a')
+            ->where('a.name = ?', $name)
+            ->andWhere('a.ide_user_id = ?', $user);
 
-      $account = $q->fetchArray();
+    $account = $q->fetchArray();
     if (count($account) > 0)
     {
       return true;
-    }else{
+    }
+    else
+    {
 
       return false;
     }
   }
+
 }

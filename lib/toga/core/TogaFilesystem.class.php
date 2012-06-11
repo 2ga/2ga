@@ -13,7 +13,7 @@
 class TogaFilesystem
 {
 
-  static function mkDir($controller,$path)
+  static function mkDir($controller, $path)
   {
 
     try
@@ -33,7 +33,7 @@ class TogaFilesystem
   }
 
   //rm -Rf
-  static function rmDir($controller,$path)
+  static function rmDir($controller, $path)
   {
     try
     {
@@ -50,7 +50,7 @@ class TogaFilesystem
     }
   }
 
-  static function writeFile($controller,$path, $body = '')
+  static function writeFile($controller, $path, $body = '')
   {
     try
     {
@@ -69,7 +69,7 @@ class TogaFilesystem
   }
 
   // rm
-  static function rm($controller,$path)
+  static function rm($controller, $path)
   {
 
     try
@@ -87,7 +87,7 @@ class TogaFilesystem
     }
   }
 
-  static function mv($controller,$from, $to)
+  static function mv($controller, $from, $to)
   {
 
     try
@@ -105,7 +105,7 @@ class TogaFilesystem
     }
   }
 
-  static function chmod($controller,$path, $permission, $recursive = false)
+  static function chmod($controller, $path, $permission, $recursive = false)
   {
     try
     {
@@ -131,7 +131,7 @@ class TogaFilesystem
     }
   }
 
-  static function getContent($controller,$path)
+  static function getContent($controller, $path)
   {
     try
     {
@@ -149,7 +149,7 @@ class TogaFilesystem
     }
   }
 
-  static function createProject($controller,$userName, $projectName)
+  static function createProject($controller, $userName, $projectName)
   {
 
 
@@ -169,16 +169,17 @@ class TogaFilesystem
 
 
     $path = TogaSettings::getDataDir() . "/users/" . $userName . "/projects/" . $projectName;
-    self::mkdir($controller,$path);
+    self::mkdir($controller, $path);
   }
 
-    static function createUser($controller,$userName)
+  static function createUser($controller, $userName)
   {
 
 
     try
     {
-      if (!self::checkName($userName)){
+      if (!self::checkName($userName))
+      {
         $e = "invalid project name";
         throw new Exception($e);
       }
@@ -190,13 +191,13 @@ class TogaFilesystem
 
 
     $path = TogaSettings::getDataDir() . "/users/" . $userName;
-    self::mkdir($controller,$path);
+    self::mkdir($controller, $path);
     $path = TogaSettings::getDataDir() . "/users/" . $userName . "/.ssh";
-    self::mkdir($controller,$path);
+    self::mkdir($controller, $path);
     $path = TogaSettings::getDataDir() . "/users/" . $userName . "/projects";
-    self::mkdir($controller,$path);
+    self::mkdir($controller, $path);
   }
-  
+
   static function checkName($string)
   {
     $pattern = '/^[0-9a-zA-z]+$/';

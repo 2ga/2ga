@@ -16,7 +16,7 @@
       <th>VCS:</th>
       <td><?php echo $ide_project->getIdeVcs()->getName() ?></td>
     </tr>
-        <tr>
+    <tr>
       <th>Protocol:</th>
       <td><?php echo $ide_project->getIdeVcsprotocol()->getName() ?></td>
     </tr>
@@ -24,7 +24,7 @@
       <th>Uri:</th>
       <td><?php echo $ide_project->getUri() ?></td>
     </tr>
-        <tr>
+    <tr>
       <th>Reodir:</th>
       <td><?php echo $ide_project->getRepdir() ?></td>
     </tr>
@@ -32,7 +32,7 @@
       <th>Port:</th>
       <td><?php echo $ide_project->getPort() ?></td>
     </tr>
-        <tr>
+    <tr>
       <th>Username:</th>
       <td><?php echo $ide_project->getUsername() ?></td>
     </tr>
@@ -57,6 +57,6 @@
 
 <hr />
 
-<a href="<?php echo url_for('project/edit?id='.$ide_project->getId()) ?>">Edit</a>
+<a href="<?php echo url_for('project/edit?id=' . $ide_project->getId()) ?>">Edit</a>
 &nbsp;
 <a href="<?php echo url_for('project/index') ?>">List</a>

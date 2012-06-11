@@ -12,4 +12,5 @@
  */
 class IdeVcsprotocol extends BaseIdeVcsprotocol
 {
+  
 }

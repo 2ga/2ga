@@ -2,51 +2,51 @@
    -------------------------------- */
 
 body{
-	/*background: #000000;*/
-	/*background-image: url(images/background.png)*/
-	background: -moz-linear-gradient(top, #000000, #F5F5F5);
-	background: -webkit-gradient(linear, left top, left bottom, from(#000000), to(#F5F5F5));
-	/*font-family: "Trebuchet MS" , "Helvetica" , "Arial" , "Verdana" , "sans-serif";*/
+  /*background: #000000;*/
+  /*background-image: url(images/background.png)*/
+  background: -moz-linear-gradient(top, #000000, #F5F5F5);
+  background: -webkit-gradient(linear, left top, left bottom, from(#000000), to(#F5F5F5));
+  /*font-family: "Trebuchet MS" , "Helvetica" , "Arial" , "Verdana" , "sans-serif";*/
 }
 
 
 div{
-	font-size: 10pt;
-	margin-top : 5px;
-	margin-bottom : 5px;	
-	border-radius: 4px 4px 4px 4px;
+  font-size: 10pt;
+  margin-top : 5px;
+  margin-bottom : 5px;	
+  border-radius: 4px 4px 4px 4px;
 }
 
 fieldset{
-	margin: 0px;
-	padding: 0px;
+  margin: 0px;
+  padding: 0px;
 }
 
 textarea{
-	border:0;
-	background-color:#ffffff;
-	color:#000000;
-	border-radius: 4px 4px 4px 4px;
-	resize: none;
-	/*overflow-x: scroll;*/
+  border:0;
+  background-color:#ffffff;
+  color:#000000;
+  border-radius: 4px 4px 4px 4px;
+  resize: none;
+  /*overflow-x: scroll;*/
 }
 button{
-	font-size: 12pt;
-	/*text-align: bottom;*/
+  font-size: 12pt;
+  /*text-align: bottom;*/
 }
 
 .contianer{
-/*	width: 100%;*/
-	height: 100%;
-	background: #333333;
-	padding: 10px;
+  /*	width: 100%;*/
+  height: 100%;
+  background: #333333;
+  padding: 10px;
 }
 .header{
-/*	width: 100%; */
-	margin-bottom: 1em;
-	background: /*#ffffe0*/#D3D3D3;
-	padding: 10px;
-	/*position: ;*/
+  /*	width: 100%; */
+  margin-bottom: 1em;
+  background: /*#ffffe0*/#D3D3D3;
+  padding: 10px;
+  /*position: ;*/
 }
 
 #new{
@@ -54,115 +54,115 @@ button{
 }
 
 div#topbutton{
-	position: relative;
-	top: 10px;
-	right: 1px;
+  position: relative;
+  top: 10px;
+  right: 1px;
 }
 
 div#editor-tabs{
-	font-size: 8pt;
-	padding:0px;
-	margin: 0 0;
-	height: 398px;
+  font-size: 8pt;
+  padding:0px;
+  margin: 0 0;
+  height: 398px;
 }
 
 div#console-tabs{
-	font-size: 8pt;
-	padding:0px;
-	margin: 0 0;
+  font-size: 8pt;
+  padding:0px;
+  margin: 0 0;
 }
 
 
 .main{
-/*	width: 100%; */
-	background: /*#ffffe0*/#D3D3D3;
-	padding: 10px;
+  /*	width: 100%; */
+  background: /*#ffffe0*/#D3D3D3;
+  padding: 10px;
 }
 .filetree{
-/*	width: 100%;
-	float: left; */
-	margin-bottom : 0px;	
-	height: 610px;
-	background: /*#e0f8ff*/#F5F5F5;
-	overflow: scroll;
-	/*border: 1px solid gray;*/
+  /*	width: 100%;
+          float: left; */
+  margin-bottom : 0px;	
+  height: 610px;
+  background: /*#e0f8ff*/#F5F5F5;
+  overflow: scroll;
+  /*border: 1px solid gray;*/
 }
 .righttools{
-	margin-top : 0px;
-	margin-bottom : 0px;	
+  margin-top : 0px;
+  margin-bottom : 0px;	
 }
 
 .editormain{
-/*	width: 100%;
-	float: left;
-	border: 1px solid;*/ 
-	height: 400px;
-	background: /*#ffffff*/#D3D3D3;
-	resize: none;
+  /*	width: 100%;
+          float: left;
+          border: 1px solid;*/ 
+  height: 400px;
+  background: /*#ffffff*/#D3D3D3;
+  resize: none;
 }
 .classlist{
-/*	width: 100%; */
-	height: 400px;
-	background: /*#e0f8ff*/#F5F5F5;
-	overflow: scroll;
+  /*	width: 100%; */
+  height: 400px;
+  background: /*#e0f8ff*/#F5F5F5;
+  overflow: scroll;
 }
 .console{
-/*	width: 100%;
-	clear: left; 
-	border: 1px solid;*/
-	height: 200px;
-	background: /*#ffffff*/#D3D3D3;
-	overflow-x: scroll;
+  /*	width: 100%;
+          clear: left; 
+          border: 1px solid;*/
+  height: 200px;
+  background: /*#ffffff*/#D3D3D3;
+  overflow-x: scroll;
 }
 .footer{
-/*	width: 100%; */
-	background: /*#ffffe0*/#D3D3D3;
+  /*	width: 100%; */
+  background: /*#ffffe0*/#D3D3D3;
 }
 
 
 
 /*
 div#ui-dialog,.ui-widget,.ui-widget-content,.ui-corner-all,.ui-draggable,.ui-resizable{
-	height: auto;
-	width: auto;
-	top: 0px; left: 0px;
+        height: auto;
+        width: auto;
+        top: 0px; left: 0px;
 }
 */
 
 /*
 div#ui-dialog,ui-widget,ui-widget-content,ui-corner-all,ui-draggable,ui-resizable{
-	top: 0px; left: 0px;
+        top: 0px; left: 0px;
 }*/
 
 
 p.ui-state-default {
-    margin: 0px;
-    position: relative;
-    padding: 0px;
-    cursor: pointer;
-    float: left;
+  margin: 0px;
+  position: relative;
+  padding: 0px;
+  cursor: pointer;
+  float: left;
 }
 
 span.ui-icon {
-    float: left;
-    margin: 15px;
-    padding: 0px;
+  float: left;
+  margin: 15px;
+  padding: 0px;
 }
 
 .jquery-ui-button div{
-    font-size: 14px;
-    margin: 5px;
-    float: left;
-    text-align: center;
+  font-size: 14px;
+  margin: 5px;
+  float: left;
+  text-align: center;
 }
 
 
 #jquery-ui-dialog-table {
-    font-size: 13px;
+  font-size: 13px;
 }
 
 #jquery-ui-dialog-table th , #jquery-ui-dialog-table td {
-    border: 1px solid gray;
+  border: 1px solid gray;
 }
 
 

@@ -7,13 +7,15 @@
  */
 class IdeVcsTable extends Doctrine_Table
 {
-    /**
-     * Returns an instance of this class.
-     *
-     * @return object IdeVcsTable
-     */
-    public static function getInstance()
-    {
-        return Doctrine_Core::getTable('IdeVcs');
-    }
+
+  /**
+   * Returns an instance of this class.
+   *
+   * @return object IdeVcsTable
+   */
+  public static function getInstance()
+  {
+    return Doctrine_Core::getTable('IdeVcs');
+  }
+
 }
