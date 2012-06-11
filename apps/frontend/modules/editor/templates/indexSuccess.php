@@ -47,11 +47,7 @@
             <div id='editor-tabs' >
               <ul></ul>
               <div class="tool-buttons">
-<<<<<<< HEAD
-              		<span class="save">Save</span>
-=======
                 <span class="save">save</span>
->>>>>>> 2725b58c4ab41d46d8543d16c6a57576223fe733
               </div>
             </div>
 
