@@ -369,6 +369,11 @@ function savefile(url, editor) {
     }
   });
 
+  if ($("#editor-tabs li.ui-tabs-selected a")[0].firstChild.className == "unsaved") {
+    // console.log("removed span.unsaved");
+    $("#editor-tabs li.ui-tabs-selected span.unsaved").remove();
+  }
+
   // var X= new XMLHttpRequest;
   // X.open('POST', newurl, true);
   // X.onreadystatechange = function() {//Call a function when the state
