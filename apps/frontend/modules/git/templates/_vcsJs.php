@@ -1,6 +1,6 @@
 <script type="text/javascript">
   $(function(){
-	//console.log("xxx");
+    //console.log("xxx");
     //GROUP:VCS
     $("#easycommit").click(function() {
       console.log("clicked");
@@ -54,7 +54,7 @@
       return false;
     });
 
-  //GROUP:VCS
+    //GROUP:VCS
     $("#commit-dialog").dialog(
     { 
       position: 'center',
@@ -114,7 +114,7 @@
         "Close": function() { $(this).dialog("close"); }}
     });
    
-   //GROUP:VCS 
+    //GROUP:VCS 
     $("#rename-dialog").dialog(
     { 
       position: 'center',

@@ -1,0 +1,244 @@
+#!/usr/bin/env php
+<?php
+
+/*
+ * This file is part of the TO/GA package.
+ * (c) Hiroto Yahagi
+ * 
+ * For the full copyright and license information, please view the README.md
+ * file that was distributed with this source code.
+ */
+
+require_once 'TogaSettings.php';
+ob_end_clean();
+
+echo "Directorys:\n";
+echo "  AppDirectory: $appDir\n";
+echo "  DataDirectory: $dataDir\n";
+echo "Databases:\n";
+echo "  Host: $sqlHost\n";
+echo "  DB Name: $dbname\n";
+echo "  Username: $sqlUname\n";
+echo "  Password: $sqlPassword\n";
+echo "Server:\n";
+echo "  IP Adress: $serverIp\n";
+echo "  Port: $serverPort\n";
+echo "  Domain: $serverDomain\n";
+echo "Email:\n";
+echo "  Address: $email_address\n";
+echo "  Sender: $email_sender\n";
+echo "  Server: $smtp_server\n";
+echo "  Port: $smtp_port\n";
+echo "  Encryption: $smtp_encryption\n";
+echo "  Username: $smtp_uname\n";
+echo "  Password: $smtp_password\n";
+echo "TO/GA:\n";   
+echo "  BackendPassword: $backend_password\n";
+echo "  DevelopMode: $devmode\n";           
+
+echo "Have you read README.md and completely understanded the contents?\n";
+echo "It includes important information about licence and disclaimer.\n";
+echo "(y=Yes, I certify agree with the contents of README.md, N=No,I'll exit installer.)";
+$ans=fgets(STDIN,10);
+$ans=rtrim($ans, "\n");
+if("y" != $ans){
+echo "exit...\n";
+exit;
+}
+
+echo "Are you sure doing system config for installing TO/GA?(y,N)";
+$ans=fgets(STDIN,10);
+$ans=rtrim($ans, "\n");
+if("y" != $ans){
+echo "Skipped config.\n";
+}else{
+sysconf();
+}
+
+echo "Are you sure install TO/GA?(y,N)";
+$ans=fgets(STDIN,10);
+$ans=rtrim($ans, "\n");
+if("y" != $ans){
+echo "Skipped install.\n";
+}else{
+makeConfFile();
+}
+
+function sysconf(){
+extract($GLOBALS);
+//Edit sudoers
+
+//Check Duplication
+$dup = strstr (file_get_contents($sudoersPath), '# Mod by TOGA');
+if(!$dup){
+
+//go
+exec("chmod 660 " . $sudoersPath);
+$contents = @file($sudoersPath);
+$buf='';
+$done=0;
+foreach($contents as $line){
+  $target = strstr ($line, 'Defaults    requiretty');
+
+  if($target){
+    $buf=$buf . "# Mod by TOGA\n";
+    $buf=$buf . '# ' . $line;
+    $done=1;
+  }else{
+    $buf=$buf . $line;
+  }
+}
+$buf=$buf . "\n# Mod by TOGA\n";
+$buf=$buf . '%apache ALL=NOPASSWD:/etc/init.d/httpd start' . "\n";
+$buf=$buf . '%apache ALL=NOPASSWD:/etc/init.d/httpd status' . "\n";
+$buf=$buf . '%apache ALL=NOPASSWD:/etc/init.d/httpd stop' . "\n";
+$buf=$buf . '%apache ALL=NOPASSWD:/etc/init.d/httpd graceful' . "\n";
+//write
+file_put_contents($sudoersPath, $buf, LOCK_EX);
+exec("chmod 440 ". $sudoersPath);
+if($done==1){
+echo 'Config Apache privilege: Done.' . "\n";
+}else{
+echo 'Config Apache privilege: Fail.' . "\n";
+}
+}else{
+echo 'Config Apache privilege: Skipped.' . "\n";
+}
+
+
+//Edit httpd.conf
+//Check Duplication
+$dup = strstr (file_get_contents($httpdconfPath), '# Mod by TOGA');
+if(!$dup){
+
+//go
+$contents = @file($httpdconfPath);
+$buf='';
+$done=0;
+foreach($contents as $line){
+  $target = strstr ($line, "### Section 2: 'Main' server configuration");
+
+  if($target){
+    $buf=$buf . "\n# Mod by TOGA\n";
+    $buf=$buf . 'NameVirtualHost ' . $serverIp . ':' . $serverPort . "\n";
+    $buf=$buf . 'Include ' . $dataDir . '/settings/sites-enabled/*' . "\n\n";
+    $buf=$buf . $line;
+    $done=1;
+  }else{
+    $buf=$buf . $line;
+  }
+}
+//write
+file_put_contents($httpdconfPath, $buf, LOCK_EX);
+
+if($done==1){
+echo 'Config Apache Include: Done.' . "\n";
+}else{
+echo 'Config Apache Include: Fail.' . "\n";
+}
+}else{
+echo 'Config Apache Include: Skipped.' . "\n";
+}
+}
+
+function makeConfFile(){
+extract($GLOBALS);
+
+echo "Making files...\n";
+
+//make dirs
+exec("mkdir " . $dataDir);
+exec("mkdir " . $appDir . "/cache");
+exec("chmod 777 " . $appDir . "/cache");
+exec("mkdir " . $appDir . "/log");
+exec("mkdir " . $appDir . "/lib/toga/core/base");
+exec("chmod 777 " . $appDir . "/log");
+exec("mkdir " . $dataDir . "/users");
+exec("mkdir " . $dataDir . "/settings");
+exec("mkdir " . $dataDir . "/settings/sites-available");
+exec("mkdir " . $dataDir . "/settings/sites-enabled");
+exec("mkdir " . $dataDir . "/tmp");
+exec("mkdir " . $dataDir . "/tmp/conf");
+exec("mkdir " . $dataDir . "/tmp/toga");
+exec("mkdir " . $dataDir . "/users/admin");
+exec("mkdir " . $dataDir . "/users/admin/projects");
+exec("mkdir " . $dataDir . "/users/admin/.ssh");
+
+
+//config/databases.yml
+$body = file_get_contents("data/toga/install/config/databases.yml");
+$body = str_replace("%TOGA:SQLHOST%", $sqlHost, $body);
+$body = str_replace("%TOGA:SQLPASSWORD%", $sqlPassword, $body);
+$body = str_replace("%TOGA:SQLUNAME%", $sqlUname, $body);
+$body = str_replace("%TOGA:DBNAME%", $dbname, $body);
+file_put_contents($appDir . "/config/databases.yml", $body, LOCK_EX);
+
+//config/ProjectConfiguration.class.php
+$body = file_get_contents("data/toga/install/config/ProjectConfiguration.class.php");
+$body = str_replace("%TOGA:APPDIR%", $appDir, $body);
+file_put_contents($appDir . "/config/ProjectConfiguration.class.php", $body, LOCK_EX);
+
+//lib/toga/core/base/BaseTogaSettings.class.php
+$body = file_get_contents("data/toga/install/lib/toga/core/base/BaseTogaSettings.class.php");
+$body = str_replace("%TOGA:DATADIR%", $dataDir, $body);
+$body = str_replace("%TOGA:APPDIR%", $appDir, $body);
+$body = str_replace("%TOGA:SQLPASSWORD%", $sqlPassword, $body);
+$body = str_replace("%TOGA:SQLUNAME%", $sqlUname, $body);
+$body = str_replace("%TOGA:SERVERIP%", $serverIp, $body);
+$body = str_replace("%TOGA:SERVERPORT%", $serverPort, $body);
+$body = str_replace("%TOGA:SERVERDOMAIN%", $serverDomain, $body);
+file_put_contents($appDir . "/lib/toga/core/base/BaseTogaSettings.class.php", $body, LOCK_EX);
+
+//apps/frontend/config/app.yml
+$body = file_get_contents("data/toga/install/apps/frontend/config/app.yml");
+$body = str_replace("%TOGA:EMAIL%", $email_address, $body);
+$body = str_replace("%TOGA:SENDER%", $email_sender, $body);
+file_put_contents($appDir . "/apps/frontend/config/app.yml", $body, LOCK_EX);
+
+//apps/frontend/config/ideExec.yml
+$body = file_get_contents("data/toga/install/apps/frontend/config/ideExec.yml");
+file_put_contents($appDir . "/apps/frontend/config/ideExec.yml", $body, LOCK_EX);
+
+//apps/frontend/config/factories.yml
+$body = file_get_contents("data/toga/install/apps/frontend/config/factories.yml");
+$body = str_replace("%TOGA:SMTPADDRESS%", $smtp_server, $body);
+$body = str_replace("%TOGA:SMTPPORT%", $smtp_port, $body);
+$body = str_replace("%TOGA:SMTPUNAME%", $smtp_uname, $body);
+$body = str_replace("%TOGA:SMTPPASSWORD%", $smtp_password, $body);
+$body = str_replace("%TOGA:SMTPENCRYPTION%", $smtp_encryption, $body);
+file_put_contents($appDir . "/apps/frontend/config/factories.yml", $body, LOCK_EX);
+
+//apps/backend/config/app.yml
+$body = file_get_contents("data/toga/install/apps/backend/config/app.yml");
+$body = str_replace("%TOGA:BACKENDPASSWORD%", $backend_password, $body);
+file_put_contents($appDir . "/apps/backend/config/app.yml", $body, LOCK_EX);
+
+if(true === $devmode){
+//web/frontend_dev.php
+$body = file_get_contents("data/toga/install/web/frontend_dev.php");
+file_put_contents($appDir . "/web/frontend_dev.php", $body, LOCK_EX);
+
+//web/backend_dev.php
+$body = file_get_contents("data/toga/install/web/backend_dev.php");
+file_put_contents($appDir . "/web/backend_dev.php", $body, LOCK_EX);
+}
+
+
+//toga_data/settings/sites-available/main.conf
+$body = file_get_contents("data/toga_data/install/settings/sites-available/main.conf");
+$body = str_replace("%TOGA:APPDIR%", $appDir, $body);
+$body = str_replace("%TOGA:SERVERIP%", $serverIp, $body);
+$body = str_replace("%TOGA:SERVERPORT%", $serverPort, $body);
+$body = str_replace("%TOGA:SERVERDOMAIN%", $serverDomain, $body);
+file_put_contents($dataDir . "/settings/sites-available/main.conf", $body, LOCK_EX);
+exec("ln -s " . $dataDir . "/settings/sites-available/main.conf ". $dataDir . "/settings/sites-enabled/");
+echo "Done.\n";
+
+}
+echo "After this, please also do...\n";
+echo "------------------------------\n";
+echo "./symfony doctrine:build --all --and-load --no-confirmation\n";
+echo "chown -R apache:apache $appDir\n";
+echo "chown -R apache:apache $dataDir\n";
+echo "------------------------------\n";
+echo "Thank you for choosing TO/GA.\n";

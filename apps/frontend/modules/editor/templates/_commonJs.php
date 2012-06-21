@@ -1,17 +1,17 @@
 <style>
 
-/*style for tab close button*/
-div#editor-tabs span.ui-icon-close{
-	margin: 2px;
-}
+  /*style for tab close button*/
+  div#editor-tabs span.ui-icon-close{
+    margin: 2px;
+  }
 
-.CodeMirror-scroll {
-	top: 60px;
-}
+  .CodeMirror-scroll {
+    top: 60px;
+  }
 
-span.ui-icon{
-	margin: 0px;
-}
+  span.ui-icon{
+    margin: 0px;
+  }
 
 </style>
 <script type="text/javascript">
@@ -163,7 +163,7 @@ span.ui-icon{
 
               filecontent = getContent(data);
               var filename = node.data.title;
-              o = $('<div id = "'+ fileid + '">xyz <textarea id="' + fileid + 'editor">' + filecontent + '</textarea></div>');
+              o = $('<div id = "'+ fileid + '"><textarea id="' + fileid + 'editor">' + filecontent + '</textarea></div>');
               //console.log(o);
               $tab.append(o);
               var x = createEditor(fileid + "editor",filename,urlsave);	// suggestion.js
@@ -186,21 +186,21 @@ span.ui-icon{
 
     // Tab's tool buttons
     $("div.tool-buttons span.save").button({
-    	icons: {
-            primary: "ui-icon-disk"
-        }
+      icons: {
+        primary: "ui-icon-disk"
+      }
     });
 
     // editor tabs with close icon button
     $tab = $('#editor-tabs').tabs({
-    	tabTemplate: "<li><a href='#{href}'>#{label}</a> <span class='ui-icon ui-icon-close'></span></li>",
+      tabTemplate: "<li><a href='#{href}'>#{label}</a> <span class='ui-icon ui-icon-close'></span></li>",
     });
 
     // close tab function
     $("#editor-tabs span.ui-icon-close").live( "click", function() {
-    	var index = $( "li", $tab ).index( $( this ).parent() );
-		$tab.tabs( "remove", index );
-		console.log("index: " + index);
+      var index = $( "li", $tab ).index( $( this ).parent() );
+      $tab.tabs( "remove", index );
+      console.log("index: " + index);
     });
 
     

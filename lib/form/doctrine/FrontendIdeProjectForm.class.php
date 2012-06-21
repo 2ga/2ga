@@ -38,18 +38,17 @@ class FrontendIdeProjectForm extends BaseIdeProjectForm
     $this->getValidator('port')->setOption('required', true);
     $this->getValidator('username')->setOption('required', true);
     //$this->getValidator('origin')->setOption('required', true);
-    
     //for key
-        $user = sfContext::getInstance()->getUser();
+    $user = sfContext::getInstance()->getUser();
     $query = Doctrine_Query::create()
-      ->from('IdeKey a')
-      ->where('a.ide_user_id = ?', $user->getGuardUser()->getId());
- 
+            ->from('IdeKey a')
+            ->where('a.ide_user_id = ?', $user->getGuardUser()->getId());
+
     $this->widgetSchema['ide_key_id']->setOption('query', $query);
     $this->validatorSchema['ide_key_id']->setOption('query', $query);
     $this->getValidator('ide_key_id')->setOption('required', true);
     $this->getWidget('ide_key_id')->setOption('add_empty', false);
-    
+
     //rebuild directory, uri
     unset($this['repdir']);
     unset($this['uri']);

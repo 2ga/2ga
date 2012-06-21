@@ -7,13 +7,15 @@
  */
 class IdeLanguageTable extends Doctrine_Table
 {
-    /**
-     * Returns an instance of this class.
-     *
-     * @return object IdeLanguageTable
-     */
-    public static function getInstance()
-    {
-        return Doctrine_Core::getTable('IdeLanguage');
-    }
+
+  /**
+   * Returns an instance of this class.
+   *
+   * @return object IdeLanguageTable
+   */
+  public static function getInstance()
+  {
+    return Doctrine_Core::getTable('IdeLanguage');
+  }
+
 }

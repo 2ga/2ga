@@ -23,9 +23,9 @@ class FrontendIdeDeployEditForm extends BaseIdeDeployForm
     unset($this['ide_project_id']);
     $user = sfContext::getInstance()->getUser();
     $query = Doctrine_Query::create()
-      ->from('IdeKey a')
-      ->where('a.ide_user_id = ?', $user->getGuardUser()->getId());
- 
+            ->from('IdeKey a')
+            ->where('a.ide_user_id = ?', $user->getGuardUser()->getId());
+
     $this->widgetSchema['ide_key_id']->setOption('query', $query);
     $this->validatorSchema['ide_key_id']->setOption('query', $query);
 

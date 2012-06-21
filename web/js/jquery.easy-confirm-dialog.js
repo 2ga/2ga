@@ -13,143 +13,143 @@
  * any later version.
  */
 (function($) {
-    $.easyconfirm = {};
-    $.easyconfirm.locales = {};
-    $.easyconfirm.locales.enUS = {
-        title: 'Are you sure?',
-        text: 'Are you sure that you want to perform this action?',
-        button: ['Cancel', 'Confirm'],
-        closeText: 'close'
+  $.easyconfirm = {};
+  $.easyconfirm.locales = {};
+  $.easyconfirm.locales.enUS = {
+    title: 'Are you sure?',
+    text: 'Are you sure that you want to perform this action?',
+    button: ['Cancel', 'Confirm'],
+    closeText: 'close'
+  };
+  $.easyconfirm.locales.svSE = {
+    title: 'Är du säker?',
+    text: 'Är du säker på att du vill genomföra denna åtgärden?',
+    button: ['Avbryt', 'Bekräfta'],
+    closeText: 'stäng'
+  };
+
+  $.fn.easyconfirm = function(options) {
+
+    var _attr = $.fn.attr;
+
+    $.fn.attr = function(attr, value) {
+      // Let the original attr() do its work.
+      var returned = _attr.apply(this, arguments);
+
+      // Fix for jQuery 1.6+
+      if (attr == 'title' && returned === undefined) 
+        returned = '';
+
+      return returned;
     };
-    $.easyconfirm.locales.svSE = {
-        title: 'Är du säker?',
-        text: 'Är du säker på att du vill genomföra denna åtgärden?',
-        button: ['Avbryt', 'Bekräfta'],
-        closeText: 'stäng'
-    };
 
-    $.fn.easyconfirm = function(options) {
+    var options = jQuery.extend({
+      eventType: 'click',
+      icon: 'help'
+    }, options);
 
-        var _attr = $.fn.attr;
+    var locale = jQuery.extend({}, $.easyconfirm.locales.enUS, options.locale);
 
-        $.fn.attr = function(attr, value) {
-            // Let the original attr() do its work.
-            var returned = _attr.apply(this, arguments);
+    // Shortcut to eventType.
+    var type = options.eventType;
 
-            // Fix for jQuery 1.6+
-            if (attr == 'title' && returned === undefined) 
-                returned = '';
+    return this.each(function() {
+      var target = this;
+      var $target = jQuery(target);
 
-            return returned;
-        };
+      // If no events present then and if there is a valid url, then trigger url change
+      var urlClick = function() {
+        if (target.href) {
+          var length = String(target.href).length;
+          if (target.href.substring(length - 1, length) != '#') 
+            document.location = target.href;
+        }
+      };
 
-        var options = jQuery.extend({
-            eventType: 'click',
-            icon: 'help'
-        }, options);
+      // If any handlers where bind before triggering, lets save them and add them later
+      var saveHandlers = function() {
+        var events = jQuery.data(target, 'events');
+        if (events) {
+          target._handlers = new Array();
+          for (var i in events[type]) {
+            target._handlers.push(events[type][i]);
+          }
 
-        var locale = jQuery.extend({}, $.easyconfirm.locales.enUS, options.locale);
+          $target.unbind(type);
+        }
+      };
+      // Re-bind old events
+      var rebindHandlers = function() {
+        if (target._handlers !== undefined) {
+          jQuery.each(target._handlers, function() {
+            $target.bind(type, this);
+          });
+        }
+      };
 
-        // Shortcut to eventType.
-        var type = options.eventType;
+      if ($target.attr('title') !== null && $target.attr('title').length > 0) 
+        locale.text = $target.attr('title');
 
-        return this.each(function() {
-            var target = this;
-            var $target = jQuery(target);
+      var dialog = (options.dialog === undefined || typeof(options.dialog) != 'object') ? 
+      $('<div class="dialog confirm">' + locale.text + '</div>') : 
+      options.dialog;
 
-            // If no events present then and if there is a valid url, then trigger url change
-            var urlClick = function() {
-                    if (target.href) {
-                        var length = String(target.href).length;
-                        if (target.href.substring(length - 1, length) != '#') 
-                            document.location = target.href;
-                    }
-                };
+      var buttons = {};
+      buttons[locale.button[1]] = function() {
+        // Unbind overriding handler and let default actions pass through
+        $target.unbind(type, handler);
 
-            // If any handlers where bind before triggering, lets save them and add them later
-            var saveHandlers = function() {
-                    var events = jQuery.data(target, 'events');
-                    if (events) {
-                        target._handlers = new Array();
-                        for (var i in events[type]) {
-                            target._handlers.push(events[type][i]);
-                        }
+        // Close dialog
+        $(dialog).dialog("close");
 
-                        $target.unbind(type);
-                    }
-                };
-            // Re-bind old events
-            var rebindHandlers = function() {
-                    if (target._handlers !== undefined) {
-                        jQuery.each(target._handlers, function() {
-                            $target.bind(type, this);
-                        });
-                    }
-                };
+        // Check if there is any events on the target
+        if (jQuery.data(target, 'events')) {
+          // Trigger click event.
+          $target.click();
+        }
+        else {
+          // No event trigger new url
+          urlClick();
+        }
 
-            if ($target.attr('title') !== null && $target.attr('title').length > 0) 
-                locale.text = $target.attr('title');
+        init();
 
-            var dialog = (options.dialog === undefined || typeof(options.dialog) != 'object') ? 
-                $('<div class="dialog confirm">' + locale.text + '</div>') : 
-                options.dialog;
+      };
+      buttons[locale.button[0]] = function() {
+        $(dialog).dialog("close");
+      };
 
-            var buttons = {};
-            buttons[locale.button[1]] = function() {
-                // Unbind overriding handler and let default actions pass through
-                $target.unbind(type, handler);
+      $(dialog).dialog({
+        autoOpen: false,
+        resizable: false,
+        draggable: true,
+        closeOnEscape: true,
+        width: 'auto',
+        minHeight: 120,
+        maxHeight: 200,
+        buttons: buttons,
+        title: locale.title,
+        closeText: locale.closeText,
+        modal: true
+      });
 
-                // Close dialog
-                $(dialog).dialog("close");
+      // Handler that will override all other actions
+      var handler = function(event) {
+        $(dialog).dialog('open');
+        event.stopImmediatePropagation();
+        event.preventDefault();
+        return false;
+      };
 
-                // Check if there is any events on the target
-                if (jQuery.data(target, 'events')) {
-                    // Trigger click event.
-                    $target.click();
-                }
-                else {
-                    // No event trigger new url
-                    urlClick();
-                }
+      var init = function() {
+        saveHandlers();
+        $target.bind(type, handler);
+        rebindHandlers();
+      };
 
-                init();
+      init();
 
-            };
-            buttons[locale.button[0]] = function() {
-                $(dialog).dialog("close");
-            };
+    });
 
-            $(dialog).dialog({
-                autoOpen: false,
-                resizable: false,
-                draggable: true,
-                closeOnEscape: true,
-                width: 'auto',
-                minHeight: 120,
-                maxHeight: 200,
-                buttons: buttons,
-                title: locale.title,
-                closeText: locale.closeText,
-                modal: true
-            });
-
-            // Handler that will override all other actions
-            var handler = function(event) {
-                    $(dialog).dialog('open');
-                    event.stopImmediatePropagation();
-                    event.preventDefault();
-                    return false;
-                };
-
-            var init = function() {
-                    saveHandlers();
-                    $target.bind(type, handler);
-                    rebindHandlers();
-                };
-
-            init();
-
-        });
-
-    };
+  };
 })(jQuery);

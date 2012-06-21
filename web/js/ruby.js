@@ -6,9 +6,13 @@ CodeMirror.defineMode("ruby", function(config, parserConfig) {
   }
   var keywords = wordObj(rb_keywords);
   var indentWords = wordObj(["def", "class", "case", "for", "while", "do", "module", "then",
-                             "unless", "catch", "loop", "proc"]);
+    "unless", "catch", "loop", "proc"]);
   var dedentWords = wordObj(["end", "until"]);
-  var matching = {"[": "]", "{": "}", "(": ")"};
+  var matching = {
+    "[": "]", 
+    "{": "}", 
+    "(": ")"
+  };
   var curPunc;
 
   function chain(newtok, stream, state) {
@@ -29,7 +33,10 @@ CodeMirror.defineMode("ruby", function(config, parserConfig) {
     } else if (ch == "%") {
       var style, embed = false;
       if (stream.eat("s")) style = "atom";
-      else if (stream.eat(/[WQ]/)) { style = "string"; embed = true; }
+      else if (stream.eat(/[WQ]/)) {
+        style = "string";
+        embed = true;
+      }
       else if (stream.eat(/[wxqr]/)) style = "string";
       var delim = stream.eat(/[^\w\s]/);
       if (!delim) return "operator";
@@ -139,12 +146,17 @@ CodeMirror.defineMode("ruby", function(config, parserConfig) {
 
   return {
     startState: function() {
-      return {tokenize: [tokenBase],
-              indented: 0,
-              context: {type: "top", indented: -config.indentUnit},
-              continuedLine: false,
-              lastTok: null,
-              varList: false};
+      return {
+        tokenize: [tokenBase],
+        indented: 0,
+        context: {
+          type: "top", 
+          indented: -config.indentUnit
+          },
+        continuedLine: false,
+        lastTok: null,
+        varList: false
+      };
     },
 
     token: function(stream, state) {
@@ -153,9 +165,9 @@ CodeMirror.defineMode("ruby", function(config, parserConfig) {
       if (style == "ident") {
         var word = stream.current();
         style = keywords.propertyIsEnumerable(stream.current()) ? "keyword"
-          : /^[A-Z]/.test(word) ? "tag"
-          : (state.lastTok == "def" || state.lastTok == "class" || state.varList) ? "def"
-          : "variable";
+        : /^[A-Z]/.test(word) ? "tag"
+        : (state.lastTok == "def" || state.lastTok == "class" || state.varList) ? "def"
+        : "variable";
         if (indentWords.propertyIsEnumerable(word)) kwtype = "indent";
         else if (dedentWords.propertyIsEnumerable(word)) kwtype = "dedent";
         else if (word == "if" && stream.column() == stream.indentation()) kwtype = "indent";
@@ -164,7 +176,11 @@ CodeMirror.defineMode("ruby", function(config, parserConfig) {
       if (curPunc == "|") state.varList = !state.varList;
 
       if (kwtype == "indent" || /[\(\[\{]/.test(curPunc))
-        state.context = {prev: state.context, type: curPunc || style, indented: state.indented};
+        state.context = {
+          prev: state.context, 
+          type: curPunc || style, 
+          indented: state.indented
+          };
       else if ((kwtype == "dedent" || /[\)\]\}]/.test(curPunc)) && state.context.prev)
         state.context = state.context.prev;
 
@@ -178,9 +194,9 @@ CodeMirror.defineMode("ruby", function(config, parserConfig) {
       var firstChar = textAfter && textAfter.charAt(0);
       var ct = state.context;
       var closing = ct.type == matching[firstChar] ||
-        ct.type == "keyword" && /^(?:end|until|else|elsif|when)\b/.test(textAfter);
+      ct.type == "keyword" && /^(?:end|until|else|elsif|when)\b/.test(textAfter);
       return ct.indented + (closing ? 0 : config.indentUnit) +
-        (state.continuedLine ? config.indentUnit : 0);
+      (state.continuedLine ? config.indentUnit : 0);
     }
   };
 });

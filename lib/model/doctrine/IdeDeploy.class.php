@@ -12,20 +12,24 @@
  */
 class IdeDeploy extends BaseIdeDeploy
 {
-  function hasAccess($id,$user)
+
+  function hasAccess($id, $user)
   {
-            $q = Doctrine_Query::create()
-                ->select('p.*, d.*, i.*')
-                ->from('IdeDeploy d, d.IdeProject p')
-                ->where('d.id = ?', $id)
+    $q = Doctrine_Query::create()
+            ->select('p.*, d.*, i.*')
+            ->from('IdeDeploy d, d.IdeProject p')
+            ->where('d.id = ?', $id)
             ->andWhere('p.ide_user_id = ?', $user);
 
-        $data = $q->fetchArray();
-        if (count($data) > 0)
+    $data = $q->fetchArray();
+    if (count($data) > 0)
     {
       return true;
-    }else{
+    }
+    else
+    {
       return false;
     }
   }
+
 }

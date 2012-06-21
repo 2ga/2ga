@@ -11,8 +11,8 @@
   <body>
     <?php include_component('sfApply', 'login') ?>
     <ul>
-      <li><?php echo link_to('Project','project/index') ?></li>
-      <li><?php echo link_to('Key','key/index') ?></li>
+      <li><?php echo link_to('Project', 'project/index') ?></li>
+      <li><?php echo link_to('Key', 'key/index') ?></li>
     </ul>
     <?php echo $sf_content ?>
   </body>

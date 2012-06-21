@@ -23,20 +23,20 @@ class FrontendIdeDeployForm extends BaseIdeDeployForm
     unset($this['ide_project_id']);
     $user = sfContext::getInstance()->getUser();
     $query = Doctrine_Query::create()
-      ->from('IdeKey a')
-      ->where('a.ide_user_id = ?', $user->getGuardUser()->getId());
- 
+            ->from('IdeKey a')
+            ->where('a.ide_user_id = ?', $user->getGuardUser()->getId());
+
     $this->widgetSchema['ide_key_id']->setOption('query', $query);
     $this->validatorSchema['ide_key_id']->setOption('query', $query);
 
     //project hidden
-    $this->setWidget('ide_project_id',  new sfWidgetFormInputHidden(array('default' => sfContext::getInstance()->getRequest()->getParameter('project',1))));
-        $query = Doctrine_Query::create()
-      ->from('IdeProject a')
-      ->where('a.ide_user_id = ?', $user->getGuardUser()->getId());
-    $this->setValidator('ide_project_id',new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('IdeProject'), 'required' => false)));
-     $this->validatorSchema['ide_project_id']->setOption('query', $query);
-     
+    $this->setWidget('ide_project_id', new sfWidgetFormInputHidden(array('default' => sfContext::getInstance()->getRequest()->getParameter('project', 1))));
+    $query = Doctrine_Query::create()
+            ->from('IdeProject a')
+            ->where('a.ide_user_id = ?', $user->getGuardUser()->getId());
+    $this->setValidator('ide_project_id', new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('IdeProject'), 'required' => false)));
+    $this->validatorSchema['ide_project_id']->setOption('query', $query);
+
     //rebuild directory, uri
     unset($this['directory']);
     unset($this['uri']);

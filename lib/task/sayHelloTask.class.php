@@ -28,7 +28,7 @@ class sayHelloTask extends sfBaseTask
                 'is_noexec_user' => sfConfig::get('ideexec_noexec_user'),
                 'default_user' => sfConfig::get('ideexec_defaultuser')
             ));
-    
+
     foreach ($projects as $project)
     {
 

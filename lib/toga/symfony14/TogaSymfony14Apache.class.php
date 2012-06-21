@@ -12,14 +12,15 @@
  */
 class TogaSymfony14Apache
 {
-   static function deployVirtualHost($controller,$userName, $projectName)
+
+  static function deployVirtualHost($controller, $userName, $projectName)
   {
 
 
     try
     {
-      $body = "<VirtualHost " . TogaSettings::getServerIp() .  ":" . TogaSettings::getServerPort() . ">\n";
-      $body .= "  ServerName $projectName.$userName." . TogaSettings::getServerDomain()  . "\n";
+      $body = "<VirtualHost " . TogaSettings::getServerIp() . ":" . TogaSettings::getServerPort() . ">\n";
+      $body .= "  ServerName $projectName.$userName." . TogaSettings::getServerDomain() . "\n";
       $body .= "  DocumentRoot " . TogaSettings::getDataDir() . "/users/" . $userName . "/projects/" . $projectName . "/web\n";
       $body .= "  <Directory " . TogaSettings::getDataDir() . "/users/" . $userName . "/projects/" . $projectName . "/web>\n";
       $body .= "    AllowOverride All\n";
@@ -28,11 +29,11 @@ class TogaSymfony14Apache
       $body .= "  </Directory>\n";
       $body .= "</VirtualHost>";
 
-      TogaFilesystem::writeFile($controller,TogaSettings::getDataDir() . "/tmp/conf/$userName$projectName.conf", $body);
+      TogaFilesystem::writeFile($controller, TogaSettings::getDataDir() . "/tmp/conf/$userName$projectName.conf", $body);
       exec("mv " . TogaSettings::getDataDir() . "/tmp/conf/$userName$projectName.conf " . TogaSettings::getDataDir() . "/settings/sites-available/$userName$projectName.conf");
       //exec("chown root:root " .  TogaSettings::getDataDir() . "/settings/sites-available/$userName$projectName.conf");
       exec("chmod 644 " . TogaSettings::getDataDir() . "/settings/sites-available/$userName$projectName.conf");
-      exec("ln -s " .  TogaSettings::getDataDir() . "/settings/sites-available/$userName$projectName.conf " .  TogaSettings::getDataDir() . "/settings/sites-enabled/");
+      exec("ln -s " . TogaSettings::getDataDir() . "/settings/sites-available/$userName$projectName.conf " . TogaSettings::getDataDir() . "/settings/sites-enabled/");
       exec("sudo /etc/init.d/httpd graceful");
     }
     catch (Exception $e)

@@ -89,8 +89,8 @@ class projectActions extends sfActions
         {
           return sfView::ERROR;
         }
-       
-        TogaFilesystem::createProject($this,$this->getUser()->getGuardUser()->getUsername(), $form->getValue('name'));
+
+        TogaFilesystem::createProject($this, $this->getUser()->getGuardUser()->getUsername(), $form->getValue('name'));
 
         $lang_obj = new IdeLanguage();
 
@@ -104,12 +104,13 @@ class projectActions extends sfActions
         }
 
 
-        TogaMysql::createDb($this,$this->getUser()->getGuardUser()->getUsername(), $form->getValue('name'), 0);
+        TogaMysql::createDb($this, $this->getUser()->getGuardUser()->getUsername(), $form->getValue('name'), 0);
         //add to db
         $db_obj = new IdeProject();
         $ide_project = $db_obj->newProject($form, $this->getUser());
         if ('symfony14' == $lang_obj->getShortname($form->getValue('ide_language_id')))
         {
+          
         }
         else
         {
@@ -130,17 +131,16 @@ class projectActions extends sfActions
   protected function generateProjectSymfony(sfWebRequest $request, sfForm $form)
   {
 
-    TogaSymfony14Command::generateProject($this,$this->getUser()->getGuardUser()->getUsername(), $form->getValue('name'));
-    TogaSymfony14Command::generateApp($this,$this->getUser()->getGuardUser()->getUsername(), $form->getValue('name'),"frontend");
-    TogaSymfony14Command::generateModule($this,$this->getUser()->getGuardUser()->getUsername(), $form->getValue('name'),"frontend","sandbox");
-    TogaSymfony14Apache::deployVirtualHost($this,$this->getUser()->getGuardUser()->getUsername(), $form->getValue('name'));
-    TogaSymfony14Command::generateDBYml($this,$this->getUser()->getGuardUser()->getUsername(), $form->getValue('name'), 0, $this->getUser()->getGuardUser()->getId());
-
+    TogaSymfony14Command::generateProject($this, $this->getUser()->getGuardUser()->getUsername(), $form->getValue('name'));
+    TogaSymfony14Command::generateApp($this, $this->getUser()->getGuardUser()->getUsername(), $form->getValue('name'), "frontend");
+    TogaSymfony14Command::generateModule($this, $this->getUser()->getGuardUser()->getUsername(), $form->getValue('name'), "frontend", "sandbox");
+    TogaSymfony14Apache::deployVirtualHost($this, $this->getUser()->getGuardUser()->getUsername(), $form->getValue('name'));
+    TogaSymfony14Command::generateDBYml($this, $this->getUser()->getGuardUser()->getUsername(), $form->getValue('name'), 0, $this->getUser()->getGuardUser()->getId());
   }
 
   protected function generateProjectRoR(sfWebRequest $request, sfForm $form)
   {
-
+    
   }
 
 }

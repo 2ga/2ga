@@ -1,0 +1,22 @@
+<?php
+$dataDir = '/share/toga/toga_data';
+$appDir = '/share/toga/2ga';
+$sqlHost = 'localhost';
+$dbname = 'webide';
+$sqlPassword = 'seacret';
+$sqlUname = 'root';
+$serverIp = '192.168.1.101';
+$serverPort = '80';
+$serverDomain = 'toga.mydomain.com';
+$email_address= 'me@mydomain.com';
+$email_sender='WebIDE Admin';
+$smtp_server='smtp.mydomain.com';
+$smtp_port='465';
+$smtp_encryption='ssl';
+$smtp_uname='me@mydomain.com';
+$smtp_password='seacret';
+//Please input sha1
+$backend_password='hogehogehogehoge';
+$devmode=true;
+$httpdconfPath='/etc/httpd/conf/httpd.conf';
+$sudoersPath='/etc/sudoers';
