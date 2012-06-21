@@ -41,41 +41,53 @@ var createEditor = (function(editorid, filename, url) {
       node.attachEvent("on" + type, wrapHandler);
   }
 
-  var editor = CodeMirror.fromTextArea(document.getElementById(editorid), {
-    lineNumbers: true,
-    theme: "night",
-    onKeyEvent: function(i, e) {
-      if (!done) {
-        var complete = document.getElementById("complete");
-        var complete_comment = document.getElementById("complete_comment")
-        done = true;
-        complete.parentNode.removeChild(complete);
-        complete_comment.parentNode.removeChild(complete_comment);
-      }
-      // Hook into ctrl-s
-      if (e.keyCode == 83 && (e.ctrlKey || e.metaKey) && !e.altKey) {
-        e.stop();
-        savefile(url, editor);
-        // startComplete();
-        // var complete = document.getElementById("complete");
-        // var complete_comment = document.getElementById("complete_comment");
-        // if (complete!=null && complete_comment != null){
-        // complete.parentNode.removeChild(complete);
-        // complete_comment.parentNode.removeChild(complete_comment);
-        // }
-        // editor.focus();
-        // allCom = {};
-        // allVar = getAllVar(editor.lineCount() -1);
-        // senddata();
-      }
-      // Hook into ctrl-space
-      if (e.keyCode == 32 && (e.ctrlKey || e.metaKey) && !e.altKey) {
-        e.stop();
-        return startComplete();
-      }
+  var editor = CodeMirror
+      .fromTextArea(
+          document.getElementById(editorid),
+          {
+            lineNumbers: true,
+            theme: "night",
+            onKeyEvent: function(i, e) {
+              if (!done) {
+                var complete = document.getElementById("complete");
+                var complete_comment = document
+                    .getElementById("complete_comment")
+                done = true;
+                complete.parentNode.removeChild(complete);
+                complete_comment.parentNode.removeChild(complete_comment);
+              }
+              // Hook into ctrl-s
+              if (e.keyCode == 83 && (e.ctrlKey || e.metaKey) && !e.altKey) {
+                e.stop();
+                savefile(url, editor);
+                // startComplete();
+                // var complete = document.getElementById("complete");
+                // var complete_comment =
+                // document.getElementById("complete_comment");
+                // if (complete!=null && complete_comment != null){
+                // complete.parentNode.removeChild(complete);
+                // complete_comment.parentNode.removeChild(complete_comment);
+                // }
+                // editor.focus();
+                // allCom = {};
+                // allVar = getAllVar(editor.lineCount() -1);
+                // senddata();
+              }
+              // Hook into ctrl-space
+              if (e.keyCode == 32 && (e.ctrlKey || e.metaKey) && !e.altKey) {
+                e.stop();
+                return startComplete();
+              }
 
-    }
-  });
+            },
+            onChange: function() {
+              // console.log(changed.);
+              if ($("#editor-tabs li.ui-tabs-selected a")[0].firstChild.className != "unsaved") {
+                $("#editor-tabs li.ui-tabs-selected")[0].firstChild.innerHTML = '<span class="unsaved">*</span>'
+                    + $("#editor-tabs li.ui-tabs-selected")[0].firstChild.innerHTML;
+              }
+            }
+          });
   // Save button clicked.
   $("div.tool-buttons span.save").click(function() {
     var className = editor.getWrapperElement().parentNode.className;
@@ -365,9 +377,16 @@ function savefile(url, editor) {
     }
   });
 
+  if ($("#editor-tabs li.ui-tabs-selected a")[0].firstChild.className == "unsaved") {
+    // console.log("removed span.unsaved");
+    $("#editor-tabs li.ui-tabs-selected span.unsaved").remove();
+  }
+
   // var X= new XMLHttpRequest;
   // X.open('POST', newurl, true);
-  // X.onreadystatechange = function() {//Call a function when the state changes.
+  // X.onreadystatechange = function() {//Call a function when the state
+  // changes.
+
   // console.log(X.readyState);
   // if(X.readyState == 4) {
   // alert(X.responseText);

@@ -15,8 +15,9 @@
 
 </style>
 <script type="text/javascript">
-  $(function(){
-    var curnode
+  var curnode;
+  
+  $(function(){  
     function getContent (data){
       return data.substring(data.indexOf("<contents>")+10,data.indexOf("</contents>"));
     };
