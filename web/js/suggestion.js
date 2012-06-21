@@ -88,6 +88,14 @@ var createEditor = (function(editorid, filename, url) {
               }
             }
           });
+  // Save button clicked.
+  $("div.tool-buttons span.save").click(function() {
+    var className = editor.getWrapperElement().parentNode.className;
+    if (className.search(/ui-tabs-hide/i) == -1) {
+      savefile(url, editor);
+      console.log("saved.");
+    }
+  });
 
   var allVar = [];
   var allCom = {};
@@ -378,6 +386,7 @@ function savefile(url, editor) {
   // X.open('POST', newurl, true);
   // X.onreadystatechange = function() {//Call a function when the state
   // changes.
+
   // console.log(X.readyState);
   // if(X.readyState == 4) {
   // alert(X.responseText);
