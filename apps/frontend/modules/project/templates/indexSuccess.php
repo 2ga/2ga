@@ -1,3 +1,6 @@
+<ul class="pannel">
+  <li id="http://conf1.toga-test.com/project/index">
+
 <h1>Projects List</h1>
 
 <table>
@@ -28,5 +31,7 @@
     <?php endforeach; ?>
   </tbody>
 </table>
-
-<a href="<?php echo url_for('project/new') ?>">New</a>
+  <a href="<?php echo url_for('project/new') ?>">New</a>
+  
+  </li>
+</ul>
