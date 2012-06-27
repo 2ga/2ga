@@ -18,58 +18,51 @@ class editorActions extends sfActions
    */
   public function executeIndex(sfWebRequest $request)
   {
-    $db_obj= new IdeProject();
-    $this->forward404Unless($db_obj->hasAccess($request->getParameter('project'),$this->getUser()->getGuardUser()->getId()));
-    
-    $this->pj_detail=$db_obj->getDetail($request->getParameter('project'));
-    $this->project_id=escapeshellcmd($request->getParameter('project'));
+    $db_obj = new IdeProject();
+    $this->forward404Unless($db_obj->hasAccess($request->getParameter('project'), $this->getUser()->getGuardUser()->getId()));
+
+    $this->pj_detail = $db_obj->getDetail($request->getParameter('project'));
+    $this->project_id = escapeshellcmd($request->getParameter('project'));
     $this->ide_project = Doctrine_Core::getTable('IdeProject')->find(array($request->getParameter('project')));
-    $user= $this->getUser()->getGuardUser()->getUsername();
+    $user = $this->getUser()->getGuardUser()->getUsername();
     $mes = '<ul id="treeData" style="display:none;">';
     $mes = $mes . $this->getFileTree(TogaSettings::getDataDir() . '/users/' . $user . '/projects/' . $this->ide_project->getName());
     $mes = $mes . "</ul>";
-   
 
-    $this->files=$mes;
+
+    $this->files = $mes;
     //echo '/home/' . $user . '/IDEProject/' . $this->ide_project->getName();
     //exit;
   }
 
-    public function executeRaw(sfWebRequest $request)
+  public function executeRaw(sfWebRequest $request)
   {
     //$this->forward('default', 'module');
     $mes = '<ul id="treeData" style="display:none;">';
     $mes = $mes . $this->getFileTree('/Users/thangtranduc/Documents/RoRProject/dp');
     $mes = $mes . "</ul>";
-   
-    $this->files=$mes;
+
+    $this->files = $mes;
     echo $this->files;
     exit;
   }
 
-
-  
- 
-
-        public function executeTest(sfWebRequest $request)
+  public function executeTest(sfWebRequest $request)
   {
-           
+
     //$test_obj= new myUser();
     //$mes=$test_obj->testConfig();
-  
+  }
 
-          
-}
-  
   public function getFileTree($path)
   {
     $mes = "";
-    
+
     //echo "start<br>";
     if (is_file($path))
     {
       //echo 'Path is ' . $path;
-      $mes = $mes .  '<li id="' . $path  .'">' . basename($path) . "</li>";
+      $mes = $mes . '<li id="' . $path . '">' . basename($path) . "</li>";
       return $mes;
     }
     elseif (is_dir($path))
@@ -82,11 +75,11 @@ class editorActions extends sfActions
 
       if (is_link($path))
       {
-      $mes = $mes .  '<li class="folder" id="' . $path  .'">' . basename($path) . "</li>";
-      return $mes;
+        $mes = $mes . '<li class="folder" id="' . $path . '">' . basename($path) . "</li>";
+        return $mes;
       }
-      
-      $mes = $mes . '<li class="folder" id="' . $path  .'">' . basename($path) . "<ul>";
+
+      $mes = $mes . '<li class="folder" id="' . $path . '">' . basename($path) . "<ul>";
       $file_list = scandir($path);
 
       foreach ($file_list as $file)
@@ -102,9 +95,6 @@ class editorActions extends sfActions
     {
       return $mes;
     }
-    
-    
   }
-  
 
 }

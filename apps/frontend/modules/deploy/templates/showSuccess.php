@@ -49,6 +49,6 @@
 
 <hr />
 
-<a href="<?php echo url_for('deploy/edit?id='.$ide_deploy->getId()) ?>">Edit</a>
+<a href="<?php echo url_for('deploy/edit?id=' . $ide_deploy->getId()) ?>">Edit</a>
 &nbsp;
 <a href="<?php echo url_for('deploy/index') ?>">List</a>

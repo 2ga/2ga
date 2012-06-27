@@ -12,8 +12,8 @@
  */
 class IdeProject extends BaseIdeProject
 {
-  
-    function newProject($data,$user)
+
+  function newProject($data, $user)
   {
     //regist to db
     $project = new IdeProject();
@@ -22,14 +22,14 @@ class IdeProject extends BaseIdeProject
     $project->setLocaldir($data->getValue('name'));
     $project->setDescription($data->getValue('description'));
     $project->setIdeVcsId($data->getValue('ide_vcs_id'));
-       $project->setIdeLanguageId($data->getValue('ide_language_id'));
-              $project->setIdeKeyId($data->getValue('ide_key_id'));
+    $project->setIdeLanguageId($data->getValue('ide_language_id'));
+    $project->setIdeKeyId($data->getValue('ide_key_id'));
     $project->setIdeVcsprotocolId($data->getValue('ide_vcsprotocol_id'));
-       $project->setUri($data->getValue('uri'));
-       $project->setRepdir($data->getValue('repdir'));
-       $project->setPort($data->getValue('port'));
-       $project->setUsername($data->getValue('username'));
-       $project->setOrigin($data->getValue('origin'));
+    $project->setUri($data->getValue('uri'));
+    $project->setRepdir($data->getValue('repdir'));
+    $project->setPort($data->getValue('port'));
+    $project->setUsername($data->getValue('username'));
+    $project->setOrigin($data->getValue('origin'));
     $project->setIdeUserId($user->getGuardUser()->getId());
 
 
@@ -38,52 +38,61 @@ class IdeProject extends BaseIdeProject
 
     return $project;
   }
-  
-    function hasAccess($id,$user)
+
+  function hasAccess($id, $user)
   {
-        $q = Doctrine_Query::create()
-                    ->select('a.id')
-                    ->from('IdeProject a')
-                    ->where('a.id = ?', $id)
-                    ->andWhere('a.ide_user_id = ?', $user);
+    $q = Doctrine_Query::create()
+            ->select('a.id')
+            ->from('IdeProject a')
+            ->where('a.id = ?', $id)
+            ->andWhere('a.ide_user_id = ?', $user);
 
     $account = $q->fetchArray();
     if (count($account) > 0)
     {
       return true;
-    }else{
+    }
+    else
+    {
       return false;
     }
   }
-  
-  function isNameExist($name,$user){
-     $q = Doctrine_Query::create()
-                    ->select('a.*')
-                    ->from('IdeProject a')
-                    ->where('a.name = ?', $name)
-                    ->andWhere('a.ide_user_id = ?', $user);
 
-      $account = $q->fetchArray();
+  function isNameExist($name, $user)
+  {
+    $q = Doctrine_Query::create()
+            ->select('a.*')
+            ->from('IdeProject a')
+            ->where('a.name = ?', $name)
+            ->andWhere('a.ide_user_id = ?', $user);
+
+    $account = $q->fetchArray();
     if (count($account) > 0)
     {
       return true;
-    }else{
+    }
+    else
+    {
 
       return false;
     }
   }
-  
- function getDetail($project_id){
+
+  function getDetail($project_id)
+  {
     $q = Doctrine_Query::create()
             ->select('p.*, l.*, v.*')
             ->from('IdeProject p, p.IdeLanguage l, p.IdeVcs v')
             ->where('p.id = ?', $project_id);
     $projects = $q->fetchArray();
-    if(0<count($projects)){
-       return $projects[0];   
-    }else{
+    if (0 < count($projects))
+    {
+      return $projects[0];
+    }
+    else
+    {
       return false;
     }
+  }
 
- }
 }

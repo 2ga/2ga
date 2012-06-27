@@ -14,8 +14,9 @@ span.ui-icon {
 }
 </style>
 <script type="text/javascript">
-  $(function(){
-    var curnode
+  var curnode;
+  
+  $(function(){  
     function getContent (data){
       return data.substring(data.indexOf("<contents>")+10,data.indexOf("</contents>"));
     };
@@ -169,19 +170,13 @@ span.ui-icon {
               $tab.tabs('select', "#"+fileid);
             }
           }
-          );
-
-        /* 
-         * Show Save button
-         * saxsir added. 2012/05/21
-         */
-    	$("div.tool-buttons span.save").button("enable");
-	  	$("div.tool-buttons span.save").show();
+        );
+          $("div.tool-buttons span.save").innerHTML = "save";
+          $("div.tool-buttons span.save").button("enable");
+          $("div.tool-buttons span.save").show();       
         }
-                            
       });
-                     
-                     
+           
       bindContextMenu();
     });
                     
@@ -191,32 +186,29 @@ span.ui-icon {
 
     // Tab's tool buttons
     $("div.tool-buttons span.save").button({
-    	icons: {
-            primary: "ui-icon-disk"
-        }
+      icons: {
+        primary: "ui-icon-disk"
+      }
     });
     
 
     // editor tabs with close icon button
     $tab = $('#editor-tabs').tabs({
-    	tabTemplate: "<li><a href='#{href}'>#{label}</a> <span class='ui-icon ui-icon-close'></span></li>",
+      tabTemplate: "<li><a href='#{href}'>#{label}</a> <span class='ui-icon ui-icon-close'></span></li>",
     });
 
     // close tab function
     $("#editor-tabs span.ui-icon-close").live( "click", function() {
-    	var index = $( "li", $tab ).index( $( this ).parent() );
-		$tab.tabs( "remove", index );
-		console.log("index: " + index);
+      var index = $( "li", $tab ).index( $( this ).parent() );
+      $tab.tabs( "remove", index );
+      console.log("index: " + index);
 
-		/*
-		 * Hide Save button.(If there are NOT tabs.)
-		 * saxsir added. 2012/05/21
-		 */
-	    var remaning_tabs = $tab.tabs("length");
-    	if(remaning_tabs == 0) {
-		$("div.tool-buttons span.save").button("disable");
-		$("div.tool-buttons span.save").hide();
-    	}
+      var remaning_tabs = $tab.tabs("length");
+      if(remaning_tabs == 0) {
+        $("div.tool-buttons span.save").innerHTML = " ";
+        $("div.tool-buttons span.save").button("disable");
+        $("div.tool-buttons span.save").hide();
+        }
     });
 
     

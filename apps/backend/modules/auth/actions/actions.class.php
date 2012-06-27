@@ -10,17 +10,18 @@
  */
 class authActions extends sfActions
 {
- /**
-  * Executes index action
-  *
-  * @param sfRequest $request A request object
-  */
+
+  /**
+   * Executes index action
+   *
+   * @param sfRequest $request A request object
+   */
   public function executeIndex(sfWebRequest $request)
   {
     $this->forward('auth', 'index');
   }
-  
-    public function executeLogin(sfWebRequest $request)
+
+  public function executeLogin(sfWebRequest $request)
   {
 
     //if already loged in
@@ -40,19 +41,18 @@ class authActions extends sfActions
 
       if ($this->form->isValid())
       {
-        
-        $this->redirect('sfGuardUser/index');
 
+        $this->redirect('sfGuardUser/index');
       }
     }
     return sfView::SUCCESS;
-   
-  }  
+  }
 
-    public function executeLogout(sfWebRequest $request)
+  public function executeLogout(sfWebRequest $request)
   {
     $this->getUser()->setAuthenticated(FALSE);
     $this->getUser()->clearCredentials();
     $this->redirect('auth/login');
   }
+
 }
