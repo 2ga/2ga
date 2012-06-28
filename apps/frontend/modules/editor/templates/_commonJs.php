@@ -1,7 +1,7 @@
 <style>
 
   /*style for tab close button*/
-  div#editor-tabs span.ui-icon-close{
+  div#editor-tabs span.ui-icon-close {
     margin: 2px;
   }
 
@@ -9,10 +9,9 @@
     top: 60px;
   }
 
-  span.ui-icon{
+  span.ui-icon {
     margin: 0px;
   }
-
 </style>
 <script type="text/javascript">
   var curnode;
@@ -172,11 +171,12 @@
             }
           }
         );
+          $("div.tool-buttons span.save").innerHTML = "save";
+          $("div.tool-buttons span.save").button("enable");
+          $("div.tool-buttons span.save").show();       
         }
-                            
       });
-                     
-                     
+           
       bindContextMenu();
     });
                     
@@ -190,10 +190,11 @@
         primary: "ui-icon-disk"
       }
     });
+    
 
     // editor tabs with close icon button
     $tab = $('#editor-tabs').tabs({
-      tabTemplate: "<li><a href='#{href}'>#{label}</a> <span class='ui-icon ui-icon-close'></span></li>",
+      tabTemplate: "<li><a href='#{href}'>#{label}</a> <span class='ui-icon ui-icon-close'></span></li>"
     });
 
     // close tab function
@@ -201,6 +202,13 @@
       var index = $( "li", $tab ).index( $( this ).parent() );
       $tab.tabs( "remove", index );
       console.log("index: " + index);
+
+      var remaning_tabs = $tab.tabs("length");
+      if(remaning_tabs == 0) {
+        $("div.tool-buttons span.save").innerHTML = " ";
+        $("div.tool-buttons span.save").button("disable");
+        $("div.tool-buttons span.save").hide();
+      }
     });
 
     
