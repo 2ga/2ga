@@ -174,7 +174,7 @@ span.ui-icon {
           $("div.tool-buttons span.save").innerHTML = "save";
           $("div.tool-buttons span.save").button("enable");
           $("div.tool-buttons span.save").show();       
-        }                            
+        }
       });
            
       bindContextMenu();
@@ -190,6 +190,7 @@ span.ui-icon {
         primary: "ui-icon-disk"
       }
     });
+    
 
     // editor tabs with close icon button
     $tab = $('#editor-tabs').tabs({

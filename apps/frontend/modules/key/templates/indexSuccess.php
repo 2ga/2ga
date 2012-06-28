@@ -1,3 +1,6 @@
+<ul class="pannel">
+  <li id="http://conf1.toga-test.com/key/index">
+
 <h1>Keys List</h1>
 
 <table>
@@ -18,5 +21,7 @@
     <?php endforeach; ?>
   </tbody>
 </table>
-
-<a href="<?php echo url_for('key/new') ?>">New</a>
+  <a href="<?php echo url_for('key/new') ?>">New</a>
+  
+  </li>
+</ul>
