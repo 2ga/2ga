@@ -11,10 +11,10 @@
   <body>
     <?php include_component('sfApply', 'login') ?>
     <ul class="tabrow">
-      <li class="<?php  if('project' == $sf_context->getModuleName()) echo "selected"?>">
-        <?php echo link_to('Project','project/index') ?></li>
-      <li class="<?php  if('key' == $sf_context->getModuleName()) echo "selected"?>">
-        <?php echo link_to('Key','key/index') ?></li>
+      <li class="<?php if ('project' == $sf_context->getModuleName()) echo "selected" ?>">
+        <?php echo link_to('Project', 'project/index') ?></li>
+      <li class="<?php if ('key' == $sf_context->getModuleName()) echo "selected" ?>">
+        <?php echo link_to('Key', 'key/index') ?></li>
     </ul>
     <?php echo $sf_content ?>
   </body>
