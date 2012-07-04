@@ -1,17 +1,17 @@
 <style>
 
-/*style for tab close button*/
-div#editor-tabs span.ui-icon-close {
-	margin: 2px;
-}
+  /*style for tab close button*/
+  div#editor-tabs span.ui-icon-close {
+    margin: 2px;
+  }
 
-.CodeMirror-scroll {
-	top: 60px;
-}
+  .CodeMirror-scroll {
+    top: 60px;
+  }
 
-span.ui-icon {
-	margin: 0px;
-}
+  span.ui-icon {
+    margin: 0px;
+  }
 </style>
 <script type="text/javascript">
   var curnode;
@@ -194,7 +194,7 @@ span.ui-icon {
 
     // editor tabs with close icon button
     $tab = $('#editor-tabs').tabs({
-      tabTemplate: "<li><a href='#{href}'>#{label}</a> <span class='ui-icon ui-icon-close'></span></li>",
+      tabTemplate: "<li><a href='#{href}'>#{label}</a> <span class='ui-icon ui-icon-close'></span></li>"
     });
 
     // close tab function
@@ -208,7 +208,7 @@ span.ui-icon {
         $("div.tool-buttons span.save").innerHTML = " ";
         $("div.tool-buttons span.save").button("disable");
         $("div.tool-buttons span.save").hide();
-        }
+      }
     });
 
     
