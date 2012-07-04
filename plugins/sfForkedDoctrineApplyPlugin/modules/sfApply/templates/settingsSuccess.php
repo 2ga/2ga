@@ -8,10 +8,14 @@
 <ul>
 <?php echo $form ?>
 <li class="submit_row">
-<input type="submit" value="<?php echo __("Save", array(), 'sfForkedApply') ?>" /> <?php echo(__("or", array(), 'sfForkedApply')) ?>
- <?php echo link_to(__('Cancel', array(), 'sfForkedApply'), sfConfig::get('app_sfForkedApply_after', sfConfig::get('app_sfApplyPlugin_after', '@homepage'))) ?>
+<input type="submit" value="<?php echo __("Save", array(), 'sfForkedApply') ?>" /> 
+ <!--
+   <?php echo(__("or", array(), 'sfForkedApply')) ?>
+   <?php echo link_to(__('Cancel', array(), 'sfForkedApply'), sfConfig::get('app_sfForkedApply_after', sfConfig::get('app_sfApplyPlugin_after', '@homepage'))) ?>
+ -->
 </li>
 </ul>
+</br>
 </form>
 <form method="GET" action="<?php echo url_for("sfApply/resetRequest") ?>" name="sf_apply_reset_request" id="sf_apply_reset_request">
 <p>
@@ -21,8 +25,8 @@ $confirmation = sfConfig::get( 'app_sfForkedApply_confirmation' );
 if( $confirmation['reset_logged'] ): ?>
     <?php echo __('For security reasons, you
 will receive a confirmation email containing a link allowing you to complete the password change.', array(), 'sfForkedApply') ?>
-<?php endif; ?>
-</p>
+<?php endif; ?></br>
 <input type="submit" value="<?php echo __("Reset Password", array(), 'sfForkedApply') ?>" />
+</p>
 </form>
 </div>
