@@ -147,9 +147,7 @@ ul,li{
   text-decoration:none;   
 }
 
-
 /* form style */
-
 div#toga_login_image p img{
   display:block;
   margin:auto;
@@ -217,7 +215,6 @@ div.sf_guard_signin form table tbody label{
   margin-right: 0.5em;
   display: block;
 }
-
 form#sf_guard_signin li:nth-of-type(1):before{
   color : red;
   content: " *";
@@ -227,7 +224,6 @@ form#sf_guard_signin li:nth-of-type(2):before{
   content: " *";
 }
 form#sf_guard_signin input{
-  /*float:left;*/
 }
 form#sf_guard_signin li input[type="text"],
 form#sf_guard_signin li input[type="password"]{
@@ -299,7 +295,6 @@ form input[type="submit"]{
     (startColorstr=#fac878,endColorstr=#ee760f);
   zoom: 1;
 }
-
 div.sf_apply_settings h2,
 div.sf_guard_signin h1{
   color:#ffd069;
