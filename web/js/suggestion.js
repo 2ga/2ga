@@ -41,11 +41,41 @@ var createEditor = (function(editorid, filename, url) {
       node.attachEvent("on" + type, wrapHandler);
   }
 
+  function getExtention(filename) {
+    var extention = filename.split(".");
+    extention = extention[extention.length - 1];
+    return extention;
+  }
+
+  function getMimeType(extention) {
+    switch (extention) {
+    case "html":
+      return "text/html";
+    case "css":
+      return "text/css";
+    case "js":
+      return "text/javascript";
+    case "php":
+      return "application/x-httpd-php";
+    case "ruby":
+      return "text/x-ruby";
+    case "yml":
+      return "text/x-yaml";
+    case "xml":
+      return "application/xml";
+    default:
+      return "text/plain";
+    }
+  }
+  var extention = getExtention(filename);
+  var mimetype = getMimeType(extention);
+
   var editor = CodeMirror
       .fromTextArea(
           document.getElementById(editorid),
           {
             lineNumbers: true,
+            mode: mimetype,
             theme: "night",
             onKeyEvent: function(i, e) {
               if (!done) {
@@ -78,7 +108,6 @@ var createEditor = (function(editorid, filename, url) {
                 e.stop();
                 return startComplete();
               }
-
             },
             onChange: function() {
               // console.log(changed.);
@@ -87,6 +116,7 @@ var createEditor = (function(editorid, filename, url) {
                     + $("#editor-tabs li.ui-tabs-selected")[0].firstChild.innerHTML;
               }
             }
+
           });
   // Save button clicked.
   $("div.tool-buttons span.save").click(function() {
@@ -386,7 +416,6 @@ function savefile(url, editor) {
   // X.open('POST', newurl, true);
   // X.onreadystatechange = function() {//Call a function when the state
   // changes.
-
   // console.log(X.readyState);
   // if(X.readyState == 4) {
   // alert(X.responseText);
