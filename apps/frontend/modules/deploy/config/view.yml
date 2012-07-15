@@ -1,3 +1,27 @@
 default:
   has_layout:     true
   layout:         member_layout
+
+indexSuccess:
+  has_layout:     true
+  layout:         member_layout
+  stylesheets:    [blueprint/screen.css,blueprint/print.css,main.css]
+  javascripts:    [jquery-ui-1.8.16.custom/js/jquery-1.7.1.js]
+
+editSuccess:
+  has_layout:     true
+  layout:         member_layout
+  stylesheets:     [main.css,blueprint/screen.css,blueprint/print.css]
+  javascripts:    [jquery-ui-1.8.16.custom/js/jquery-1.7.1.js]
+
+newSuccess:
+  has_layout:     true
+  layout:         member_layout
+  stylesheets:     [main.css,blueprint/screen.css,blueprint/print.css]
+  javascripts:    [jquery-ui-1.8.16.custom/js/jquery-1.7.1.js]
+
+showSuccess:
+  has_layout:     true
+  layout:         member_layout
+  stylesheets:     [main.css,blueprint/screen.css,blueprint/print.css]
+  javascripts:    [jquery-ui-1.8.16.custom/js/jquery-1.7.1.js]
