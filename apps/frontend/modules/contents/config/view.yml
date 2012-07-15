@@ -3,3 +3,14 @@ default:
 
   has_layout:     true
   layout:         simple_layout
+  
+topSuccess:
+  has_layout:     true
+  layout:         simple_layout
+  stylesheets:    [blueprint/screen.css,blueprint/print.css,jquery-ui-1.8.16.custom/css/ui-lightness/jquery-ui-1.8.16.custom.css,main.css]
+  javascripts:    [jquery-ui-1.8.16.custom/js/jquery-1.7.1.js,jquery-ui-1.8.16.custom/js/jquery-ui-1.8.16.custom.min.js]
+indexSuccess:
+  has_layout:     true
+  layout:         simple_layout
+  stylesheets:    [blueprint/screen.css,blueprint/print.css,jquery-ui-1.8.16.custom/css/ui-lightness/jquery-ui-1.8.16.custom.css,main.css]
+  javascripts:    [jquery-ui-1.8.16.custom/js/jquery-1.7.1.js,jquery-ui-1.8.16.custom/js/jquery-ui-1.8.16.custom.min.js]
