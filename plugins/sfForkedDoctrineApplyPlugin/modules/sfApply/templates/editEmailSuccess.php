@@ -6,8 +6,8 @@
 <ul>
 <?php echo $form ?>
 <li class="submit_row">
-<input type="submit" value="<?php echo __("Save", array(), 'sfForkedApply') ?>" /> <?php echo(__("or", array(), 'sfForkedApply')) ?>
- <?php echo link_to(__('Cancel', array(), 'sfForkedApply'), sfConfig::get('app_sfApplyPlugin_after', sfConfig::get('app_sfForkedApply_after', '@settings'))) ?>
+<input type="submit" value="<?php echo __("Save", array(), 'sfForkedApply') ?>" /> <!--<?php echo(__("or", array(), 'sfForkedApply')) ?>
+ <?php echo link_to(__('Cancel', array(), 'sfForkedApply'), sfConfig::get('app_sfApplyPlugin_after', sfConfig::get('app_sfForkedApply_after', '@settings'))) ?>-->
 </li>
 </ul>
 </form>

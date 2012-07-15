@@ -14,6 +14,7 @@
           <ul>
             <li id="id3.2.1">Sub-item 3.2.1</li>
             <li id="id3.2.2">Sub-item 3.2.2</li>
+          </ul>
         </li>	
         <li id="id4" class="folder">item4
           <ul>
@@ -32,4 +33,5 @@
           </ul>
         </li>	
       </ul>
-      </div>
+  </ul>
+</div>
