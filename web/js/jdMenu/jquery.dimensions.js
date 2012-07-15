@@ -166,6 +166,7 @@ jQuery.fn.scrollLeft = function() {
 			jQuery.boxModel && document.documentElement.scrollLeft ||
 			document.body.scrollLeft;
 
+	//console.log(this[0]);
 	return this[0].scrollLeft;
 };
 
