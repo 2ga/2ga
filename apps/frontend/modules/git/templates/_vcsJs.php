@@ -1,5 +1,8 @@
 <script type="text/javascript">
   $(function(){
+      function getContent (data){
+	return data.substring(data.indexOf("<contents>")+10,data.indexOf("</contents>"));
+      };
     //console.log("xxx");
     //GROUP:VCS
     $("#easycommit").click(function() {
