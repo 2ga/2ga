@@ -22,7 +22,7 @@ function saveCache(url, editor) {
   });
 }
 
-function saveLocal(url, editor) {
+function saveLocalStorage(url, editor) {
   if (!window.localStorage) {
     return;
   }
