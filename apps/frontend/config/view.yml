@@ -12,9 +12,9 @@ default:
     #language:     en
     #robots:       index, follow
 
-  stylesheets:    [main.css]
+  stylesheets:    [main.css,jquery-ui-1.8.16.custom/development-bundle/themes/base/jquery.ui.all.css,jquery-ui-1.8.16.custom/css/ui-lightness/jquery-ui-1.8.16.custom.css,jquery-ui-1.8.16.custom/css/blitzer/jquery-ui-1.8.16.custom.css]
 
-  javascripts:    []
+  javascripts:    [jquery-ui-1.8.16.custom/js/jquery-1.7.1.js,jquery-ui-1.8.16.custom/js/jquery-1.6.2.min.js,jquery-ui-1.8.16.custom/js/jquery-ui-1.8.16.custom.min.js,jquery-ui-1.8.16.custom/development-bundle/ui/jquery.ui.core.js,jquery-ui-1.8.16.custom/development-bundle/ui/jquery.ui.widget.js,jquery-ui-1.8.16.custom/development-bundle/ui/jquery.ui.position.js,jquery-ui-1.8.16.custom/development-bundle/ui/jquery.ui.button.js,jquery-ui-1.8.16.custom/development-bundle/ui/jquery.ui.menu.js,jquery-ui-1.8.16.custom/development-bundle/ui/jquery.ui.menubar.js]
 
   has_layout:     true
   layout:         layout
