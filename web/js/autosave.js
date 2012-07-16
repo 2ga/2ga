@@ -8,12 +8,12 @@ function saveCache(url, editor) {
   
   $.ajax({
     type: 'POST',
-    url: url + ".cache",
+    url: url + ".tgcache",
     data: {
       body: text
     },
-    success: function(data) {
-      if(!text){
+    success: function() {
+      if(text == " "){
         console.log("clearcache");
       }else{
         console.log("savecache.");
@@ -29,17 +29,23 @@ function saveLocalStorage(url, editor) {
   doSave(url, editor);
 }
 function doSave(url, editor) {
-  console.log(editor.getValue());
+  //console.log(editor.getValue());
   var data = {
     text: editor.getValue()
   }
   window.localStorage.setItem(url, JSON.stringify(data));
-  console.log("save to local storage.");
+  //console.log("save to local storage.");
 }
 
 function loadData(key) {
   var data = JSON.parse(window.localStorage.getItem(key));
-  var value = data.text;
-  console.log("load from local storage.");
-  return value;
+  
+  if(data === null){
+    console.log("getItem("+key+") doesn't exist on local storage.");
+    return null;
+  }else{
+    var value = data.text;
+    //console.log("load from local storage.");
+    return value;
+  }
 }
