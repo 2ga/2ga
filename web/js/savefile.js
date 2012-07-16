@@ -16,6 +16,11 @@ function savefile(url, editor) {
     success: function(data) {
     }
   });
+  
+  console.log("Saved file.");
+  window.localStorage.removeItem(url); // delete cached data in local storage
+  console.log("Removed cache file on local storage");
+  saveCache(url, ""); // delete cache file on the server
 
   if ($("#editor-tabs li.ui-tabs-selected a")[0].firstChild.className == "unsaved") {
     // console.log("removed span.unsaved");
