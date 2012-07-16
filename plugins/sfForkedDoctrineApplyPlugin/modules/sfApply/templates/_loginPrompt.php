@@ -1,4 +1,9 @@
 <?php use_helper('I18N') ?>
+<div id="toga_login_image">
+  <p>
+    <a href="http://2ga.net/"><img src="/images/toga_login.png" alt="2ga.net"></a>
+  </p>
+</div>
 <form method="post" action="<?php echo url_for("@sf_guard_signin") ?>" name="sf_guard_signin" id="sf_guard_signin" class="sf_apply_signin_inline">
   <ul>
     <?php echo $form ?>
@@ -15,3 +20,5 @@
   ?>
   </p>
 </form>
+<div id="toga_login_footer">
+</div>

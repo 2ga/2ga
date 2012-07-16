@@ -1,6 +1,6 @@
 <?php use_helper('I18N') ?>
 <div id="sf_apply_logged_in_as">
-  <img src="/images/top_icon.png" alt="to/ga">
+  <a href="http://conf1.toga-test.com/project"><img src="/images/toga_header_icon_1.png" alt="to/ga"></a>
   <div>
     <p class="logged_in_as_name">
       <span class="ui-icon ui-icon-person"></span>

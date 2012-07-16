@@ -11,8 +11,8 @@
 <?php echo $form ?>
 <li class="submit_row">
 <input type="submit" value="<?php echo __("Reset My Password", array(), 'sfForkedApply') ?>">
-<?php echo __("or") ?> 
-<?php echo link_to(__('Cancel'), 'sfApply/resetCancel') ?>
+<!--<?php echo __("or") ?> 
+<?php echo link_to(__('Cancel'), 'sfApply/resetCancel') ?>-->
 </li>
 </ul>
 </form>
