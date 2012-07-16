@@ -115,17 +115,23 @@ var createEditor = (function(editorid, filename, url) {
                 $("#editor-tabs li.ui-tabs-selected")[0].firstChild.innerHTML = '<span class="unsaved">*</span>'
                     + $("#editor-tabs li.ui-tabs-selected")[0].firstChild.innerHTML;
               }
+              saveLocalStorage(url, editor);
             }
-
           });
   // Save button clicked.
   $("div.tool-buttons span.save").click(function() {
     var className = editor.getWrapperElement().parentNode.className;
     if (className.search(/ui-tabs-hide/i) == -1) {
       savefile(url, editor);
-      console.log("saved.");
     }
   });
+  
+  // Savecache every 30 seconds.
+  $(function(){
+        setInterval(function(){
+          saveCache(url, editor);
+        },30000);
+    });
 
   var allVar = [];
   var allCom = {};

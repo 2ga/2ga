@@ -110,11 +110,11 @@ var createEditor = (function(editorid, filename, url) {
               }
             },
             onChange: function() {
-              // console.log(changed.);
               if ($("#editor-tabs li.ui-tabs-selected a")[0].firstChild.className != "unsaved") {
                 $("#editor-tabs li.ui-tabs-selected")[0].firstChild.innerHTML = '<span class="unsaved">*</span>'
                     + $("#editor-tabs li.ui-tabs-selected")[0].firstChild.innerHTML;
               }
+              saveLocal(url, editor);
             }
 
           });
@@ -406,7 +406,10 @@ function savefile(url, editor) {
     success: function(data) {
     }
   });
-
+  
+  window.localStorage.removeItem(url); // delete cached data in local storage
+  saveCache(url, ""); // delete cache file on the server
+  
   if ($("#editor-tabs li.ui-tabs-selected a")[0].firstChild.className == "unsaved") {
     // console.log("removed span.unsaved");
     $("#editor-tabs li.ui-tabs-selected span.unsaved").remove();

@@ -1,17 +1,17 @@
 <style>
 
-  /*style for tab close button*/
-  div#editor-tabs span.ui-icon-close {
-    margin: 2px;
-  }
+/*style for tab close button*/
+div#editor-tabs span.ui-icon-close {
+	margin: 2px;
+}
 
-  .CodeMirror-scroll {
-    top: 60px;
-  }
+.CodeMirror-scroll {
+	top: 60px;
+}
 
-  span.ui-icon {
-    margin: 0px;
-  }
+span.ui-icon {
+	margin: 0px;
+}
 </style>
 <script type="text/javascript">
   var curnode;
@@ -133,10 +133,11 @@
                         
         onClick : function(node) {
           console.log(node.data.key);
+          var openFlg = 0;
           var filedir = node.data.key;
           fileid = filedir.split('/').join('');
           fileid = fileid.split('.').join('');
-          var filecontent;
+          var filecontent, filename;
           var url = "<?php echo url_for('localfile/open') ?>?uri="+filedir;
           var urlsave = "<?php echo url_for('localfile/write') ?>?uri="+filedir;
                             
@@ -153,24 +154,59 @@
             return;
           }
 
-          // open file              
+       // open file. if cache file exist, open cache file.
           $.ajax(
           {
             type:'GET',
             url:"<?php echo url_for('localfile/open') ?>?uri="+filedir,
             success: function(data){
-
               filecontent = getContent(data);
-              var filename = node.data.title;
-              o = $('<div id = "'+ fileid + '"><textarea id="' + fileid + 'editor">' + filecontent + '</textarea></div>');
-              //console.log(o);
-              $tab.append(o);
-              var x = createEditor(fileid + "editor",filename,urlsave);	// suggestion.js
-              $tab.tabs("add", "#"+fileid,filename);
-              $tab.tabs('select', "#"+fileid);
+              filename = node.data.title;
+
+              $.ajax(
+                  {
+                    type:'GET',
+                    url:"<?php echo url_for('localfile/open') ?>?uri="+filedir+".tgcache",
+                    success: function(cachefiledata){
+                      var cachefilecontent = getContent(cachefiledata);
+                      
+                      //if url doesn't exist or cache file is empty, do nothing.
+                      if(cachefilecontent != "" && cachefilecontent != " "){
+                        filecontent = cachefilecontent;
+                        //console.log("open cache file.");
+                      }else{
+                        //console.log("open file.");
+                        }
+
+                      var localstoragecontent = loadData(urlsave); //load from local storage.
+                      // if data exist on local storage, update filecontent.
+                      if(localstoragecontent != null){
+                        //console.log("data exist on local storage.");
+                        filecontent = localstoragecontent;
+                        }
+                      
+                      //console.log("create editor");
+                      o = $('<div id = "'+ fileid + '"><textarea id="' + fileid + 'editor">' + filecontent + '</textarea></div>');
+                      //console.log(o);
+                      $tab.append(o);
+                      var x = createEditor(fileid + "editor",filename,urlsave);	// editor.js
+                      $tab.tabs("add", "#"+fileid,filename);
+                      $tab.tabs('select', "#"+fileid);
+
+                      if(localstoragecontent != null){
+                        window.alert('"'+filename+'" Cache file exist on local storage. Restore unsaved file.');
+                      }else if(cachefilecontent != "" && cachefilecontent != " "){
+                        window.alert('"'+filename+'" Cache file exist on server. Restore unsaved file.');
+                        }
+                    }
+                  }
+                  );
+
+              
             }
           }
-        );
+          );
+          
           $("div.tool-buttons span.save").innerHTML = "save";
           $("div.tool-buttons span.save").button("enable");
           $("div.tool-buttons span.save").show();       
