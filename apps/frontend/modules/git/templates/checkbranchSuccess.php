@@ -1,3 +1,5 @@
-<!--<root>
+<!--
+<root>
 <contents><?php echo $data; ?></contents>
-</root>-->
+</root>
+-->

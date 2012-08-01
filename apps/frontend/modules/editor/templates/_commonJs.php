@@ -120,6 +120,51 @@
           case "makedir" : 
             $("#makedir-dialog").dialog('open');
             break;
+          case "git" : 
+            $("#git-dialog").dialog('open');
+            break;
+          case "add" : 
+            $("#add-dialog").dialog('open');
+            break;
+          case "commit" : 
+            $("#commit-dialog").dialog('open');
+            break;
+          case "pull" : 
+            $("#pull-dialog").dialog('open');
+            break;
+          case "push" : 
+            $("#push-dialog").dialog('open');
+            break;
+          case "easycommit" : 
+            $("#easycommit-dialog").dialog('open');
+            break;
+          case "team" : 
+            $("#team-dialog").dialog('open');
+            break;
+          case "local" : 
+            $("#local-dialog").dialog('open');
+            break;
+          case "branch" : 
+            $("#branch-dialog").dialog('open');
+            break;
+          case "remote" : 
+            $("#remote-dialog").dialog('open');
+            break;
+          case "diff" : 
+            $("#diff-dialog").dialog('open');
+            break;
+          case "create-branch" : 
+            $("#create-branch-dialog").dialog('open');
+            break;
+          case "checkout-branch" : 
+            $("#checkout-branch-dialog").dialog('open');
+            break;
+          case "check-branch" : 
+            $("#check-branch-dialog").dialog('open');
+            break;
+          case "clone" : 
+            $("#clone-dialog").dialog('open');
+            break;
         }
       });
     };
@@ -132,7 +177,7 @@
         },
                         
         onClick : function(node) {
-          console.log(node.data.key);
+          //console.log(node.data.key);
           var filedir = node.data.key;
           fileid = filedir.split('/').join('');
           fileid = fileid.split('.').join('');
