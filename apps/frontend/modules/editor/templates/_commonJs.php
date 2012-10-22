@@ -200,9 +200,22 @@
     // close tab function
     $("#editor-tabs span.ui-icon-close").live( "click", function() {
       var index = $( "li", $tab ).index( $( this ).parent() );
+
+      if ($("li", $tab)[0].firstChild.firstChild.className == "unsaved") {
+        window.alert("really?");
+      }
+      
       $tab.tabs( "remove", index );
       console.log("index: " + index);
 
+
+      /*
+      if ($("#editor-tabs li.ui-tabs-selected a")[0].firstChild.className != "unsaved") {
+        $("#editor-tabs li.ui-tabs-selected")[0].firstChild.innerHTML = '<span class="unsaved">*</span>'
+            + $("#editor-tabs li.ui-tabs-selected")[0].firstChild.innerHTML;
+      }
+      */
+      
       var remaning_tabs = $tab.tabs("length");
       if(remaning_tabs == 0) {
         $("div.tool-buttons span.save").innerHTML = " ";

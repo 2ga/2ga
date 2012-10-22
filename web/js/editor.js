@@ -311,6 +311,7 @@ var createEditor = (function(editorid, filename, url) {
       done = true;
       complete.parentNode.removeChild(complete);
       complete_comment.parentNode.removeChild(complete_comment);
+      console.log("close");
     }
     function pick() {
       insert(sel.options[sel.selectedIndex].text);
