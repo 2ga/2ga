@@ -1,17 +1,17 @@
 <style>
 
-  /*style for tab close button*/
-  div#editor-tabs span.ui-icon-close {
-    margin: 2px;
-  }
+/*style for tab close button*/
+div#editor-tabs span.ui-icon-close {
+	margin: 2px;
+}
 
-  .CodeMirror-scroll {
-    top: 60px;
-  }
+.CodeMirror-scroll {
+	top: 60px;
+}
 
-  span.ui-icon {
-    margin: 0px;
-  }
+span.ui-icon {
+	margin: 0px;
+}
 </style>
 <script type="text/javascript">
   var curnode;
@@ -190,8 +190,7 @@
         primary: "ui-icon-disk"
       }
     });
-    
-
+ 
     // editor tabs with close icon button
     $tab = $('#editor-tabs').tabs({
       tabTemplate: "<li><a href='#{href}'>#{label}</a> <span class='ui-icon ui-icon-close'></span></li>"
@@ -202,29 +201,21 @@
       var index = $( "li", $tab ).index( $( this ).parent() );
 
       if ($("li", $tab)[0].firstChild.firstChild.className == "unsaved") {
-        window.alert("really?");
+        $('#close-dialog span#close-dialog-content').html("This file has been modified. Save changes?");
+        $('#close-dialog').dialog('open');
+        return false;
       }
       
       $tab.tabs( "remove", index );
       console.log("index: " + index);
-
-
-      /*
-      if ($("#editor-tabs li.ui-tabs-selected a")[0].firstChild.className != "unsaved") {
-        $("#editor-tabs li.ui-tabs-selected")[0].firstChild.innerHTML = '<span class="unsaved">*</span>'
-            + $("#editor-tabs li.ui-tabs-selected")[0].firstChild.innerHTML;
-      }
-      */
       
       var remaning_tabs = $tab.tabs("length");
       if(remaning_tabs == 0) {
-        $("div.tool-buttons span.save").innerHTML = " ";
         $("div.tool-buttons span.save").button("disable");
         $("div.tool-buttons span.save").hide();
       }
     });
 
-    
     $('#console-tabs').tabs();
     //$tab.sortable();
                     

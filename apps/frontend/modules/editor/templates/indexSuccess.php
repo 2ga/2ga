@@ -68,4 +68,7 @@
 			</div>
 		</div>
 	</div>
+	<div id="close-dialog">
+	  <span id="close-dialog-content"><span>
+	</div>
 </div>
