@@ -25,71 +25,73 @@ VMイメージ: http://toga.tom.sfc.keio.ac.jp/toga_dev_vm.vhd
 2.Virtualboxのインストール
 
 3.HostOnlyAdapterの設定
-  (1. 設定画面<Preferences>の起動
-  (2. ネットワーク<Network>を選択
-  (3. 追加ボタンをクリック
-  (4. 設定を入力
-      -   IPv4  Address   : 192.168.56.1
-      - IPv4 Network Mask : 255.255.255.0
+   <br> 　　(1. 設定画面<Preferences>の起動
+   <br> 　　(2. ネットワーク<Network>を選択
+   <br> 　　(3. 追加ボタンをクリック
+   <br> 　　(4. 設定を入力
+   <br>   　　　-   IPv4  Address   : 192.168.56.1
+   <br>   　　　- IPv4 Network Mask : 255.255.255.0
 
 4.仮想マシンのインポート
-  (1. 名前<Name>、OSタイプを設定
-    OSType -> Operating System : Linux
-                       Version : Red Hat
-  (2. メモリの設定
-  (3. 既存のディスク<ダウンロードしたVMイメージ>を選択
-  (4. 選択した項目に間違いがないことを確認し、作成<create>ボタンをクリック
+  <br> 　　(1. 名前<Name>、OSタイプを設定
+    <br>　　　　OSType -> Operating System : Linux
+    <br>　　　　Version : Red Hat
+  <br> 　　(2. メモリの設定
+  <br> 　　(3. 既存のディスク<ダウンロードしたVMイメージ>を選択
+  <br> 　　(4. 選択した項目に間違いがないことを確認し、作成<create>ボタンをクリック
 
 5.起動準備
-  (1. 作成した仮想マシンを選択し、設定<Settings>をクリック
-  (2. ネットワーク<Network>をクリックし、Adapter1をクリック
-      -NIICをNATモード、MACアドレス080027028A6Aで設定
-  (3. Adapter2をクリック
-      -NIC2をHostOnlyモード、MACアドレス080027794AB3で設定。Nameは先ほど作ったアダプタ
-  (4. 選択した項目に間違いがないことを確認し、完了<OK>ボタンをクリック
+  <br> 　　(1. 作成した仮想マシンを選択し、設定<Settings>をクリック
+  <br> 　　(2. ネットワーク<Network>をクリックし、Adapter1をクリック
+  <br>　　 　　-NIICをNATモード、MACアドレス080027028A6Aで設定
+  <br> 　　(3. Adapter2をクリック
+  <br> 　　    -NIC2をHostOnlyモード、MACアドレス080027794AB3で設定。Nameは先ほど作ったアダプタ
+  <br> 　　(4. 選択した項目に間違いがないことを確認し、完了<OK>ボタンをクリック
 
 6.初回起動＆セットアップ
-  (1. VMを選択して起動
-  (2. ユーザ名rootのパスワードroot2gaでログイン
-  (3. パスワードを変える
-  〜パスワード変更方法〜
+  <br> 　　(1. VMを選択して起動
+  <br> 　　(2. ユーザ名rootのパスワードroot2gaでログイン
+  <br> 　　(3. パスワードを変える
+  <br> 　　〜パスワード変更方法〜
 __________________________________
-# passwd root
-Changing password for user root.
-New password:   (新しいパスワードを入力)
-Retype new password:    (新しいパスワードをもう一度入力)
-passwd: all authentication tokens updated successfully. 
+
+<br>　# passwd root
+<br>Changing password for user root.
+<br>New password:   (新しいパスワードを入力)
+<br>Retype new password:    (新しいパスワードをもう一度入力)
+<br>passwd: all authentication tokens updated successfully. 
+<br>
 __________________________________
  
-  (4. コードをクローン作成
-  〜クローン作成方法〜
+  <br> 　　(4. コードをクローン作成
+  <br> 　　〜クローン作成方法〜
 __________________________________
-  # cd /share/toga/
-# git clone git@github.com:2ga/2ga.git
-# cd 2ga
-# git submodule init
-# git submodule update
+<br>  # cd /share/toga/
+<br># git clone git@github.com:2ga/2ga.git
+<br># cd 2ga
+<br># git submodule init
+<br># git submodule update
 __________________________________
 
-  (5. TO/GAファイルを作成
-  〜作成方法〜
+  <br> 　　(5. TO/GAファイルを作成
+  <br> 　　〜作成方法〜
 __________________________________
-# cp TogaSettings.php.sample TogaSettings.php
-# emacs TogaSettings.php
+<br># cp TogaSettings.php.sample TogaSettings.php
+<br># emacs TogaSettings.php
  
-(ファイルを編集後、保存)
-(MySQLの初期設定はroot:4WTFqvShです)
+<br>(ファイルを編集後、保存)
+<br>(MySQLの初期設定はroot:4WTFqvShです)
 __________________________________
 
-  (6. TOGAのインストール -> Apache再起動
-  〜インストール方法〜
+  <br> 　　(6. TOGAのインストール -> Apache再起動
+  <br> 　　〜インストール方法〜
 __________________________________
-# cd /share/toga/2ga
-# ./install
-# ./symfony doctrine:build --all --and-load
-# chown -R apache:apache /share/toga/2ga
-# chown -R apache:apache /share/toga/toga_data
-# /etc/init.d/httpd restart
+<br># cd /share/toga/2ga
+<br># ./install
+<br># ./symfony doctrine:build --all --and-load
+<br># chown -R apache:apache /share/toga/2ga
+<br># chown -R apache:apache /share/toga/toga_data
+<br># /etc/init.d/httpd restart
 __________________________________
-
+<br> 　　
 http://conf1.toga-test.comにアクセス出来れば完成。
