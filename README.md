@@ -18,9 +18,9 @@ Disclaimer
 インストール方法
 
 1.ダウンロードする
-Virtualbox: https://www.virtualbox.org/wiki/Downloads
+<br>Virtualbox: https://www.virtualbox.org/wiki/Downloads
 
-VMイメージ: http://toga.tom.sfc.keio.ac.jp/toga_dev_vm.vhd
+<br>VMイメージ: http://toga.tom.sfc.keio.ac.jp/toga_dev_vm.vhd
 
 2.Virtualboxのインストール
 
