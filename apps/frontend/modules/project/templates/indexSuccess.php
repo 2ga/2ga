@@ -29,11 +29,11 @@
             <td><a href="<?php echo url_for("http://" . $ide_project->getName() . "." . $myname . "." . TogaSettings::getServerDomain()) ?>">Demo</a></td>
             <td><a href="<?php echo url_for("http://" . $ide_project->getName() . "." . $myname . "." . TogaSettings::getServerDomain()) . "/frontend_dev.php" ?>">Debug</a></td>
             <td><?php echo link_to('Delete', 'project/delete?id=' . $ide_project->getId(), array('method' => 'delete', 'confirm' => 'Are you sure?')) ?></td>
-        <?php endif;?>
+        <?php endif?>
         <?php endforeach; ?>
       </tbody>
     </table>
     <a href="<?php echo url_for('project/new') ?>">New</a>
-
+    
   </li>
 </ul>

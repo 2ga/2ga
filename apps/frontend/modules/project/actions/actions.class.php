@@ -73,10 +73,10 @@ class projectActions extends sfActions
     $this->forward404Unless($db_obj->hasAccess($request->getParameter('id'), $this->getUser()->getGuardUser()->getId()));
     $this->forward404Unless($ide_project = Doctrine_Core::getTable('IdeProject')->find(array($request->getParameter('id'))), sprintf('Object ide_project does not exist (%s).', $request->getParameter('id')));
     $ide_project->delete();
-
+  
     $this->redirect('project/index');
   }
-
+  
   protected function processForm(sfWebRequest $request, sfForm $form, $mode)
   {
     $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
@@ -141,6 +141,52 @@ class projectActions extends sfActions
   protected function generateProjectRoR(sfWebRequest $request, sfForm $form)
   {
     
+  }
+  
+  public function executeTrash(sfWebRequest $request)
+  {
+    $this->ide_projects = Doctrine_Core::getTable('IdeProject')
+    ->createQuery('a')
+    ->where('a.ide_user_id = ?', $this->getUser()->getGuardUser()->getId())
+    ->execute();
+    $this->myname = $this->getUser()->getGuardUser()->getUsername();
+    $this->subdomain = sfConfig::get('ideexec_subdomain');
+  }
+
+  public function executeHardDelete(sfWebRequest $request)
+  {
+    $request->checkCSRFProtection();
+    $db_obj = new IdeProject();
+    $this->forward404Unless($db_obj->hasAccess($request->getParameter('id'), $this->getUser()->getGuardUser()->getId()));
+    $this->forward404Unless($ide_project = Doctrine_Core::getTable('IdeProject')->find(array($request->getParameter('id'))), sprintf('Object ide_project does not exist (%s).', $request->getParameter('id')));
+    $ide_project->hardDelete();
+
+    $this->redirect('project/index');
+  }
+  
+ public function executeEmptyTrash(sfWebRequest $request)
+  {
+    $request->checkCSRFProtection();
+    $this->ide_projects = Doctrine_Core::getTable('IdeProject')
+    ->createQuery('a')
+    ->where('a.ide_user_id = ?', $this->getUser()->getGuardUser()->getId())
+    ->andWhere('a.deleted_at is not null')
+    ->execute();
+    foreach ($this->ide_projects as $ide_project){
+      $ide_project->hardDelete();
+    }
+    
+    $this->redirect('project/trash');
+  } 
+  public function executeRestore(sfWebRequest $request)
+  {
+    $request->checkCSRFProtection();
+    $db_obj = new IdeProject();
+    $this->forward404Unless($db_obj->hasAccess($request->getParameter('id'), $this->getUser()->getGuardUser()->getId()));
+    $this->forward404Unless($ide_project = Doctrine_Core::getTable('IdeProject')->find(array($request->getParameter('id'))), sprintf('Object ide_project does not exist (%s).', $request->getParameter('id')));
+    $ide_project->deleted_at = null;
+    $ide_project->save();
+    $this->redirect('project/index');
   }
 
 }

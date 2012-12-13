@@ -25,3 +25,9 @@ showSuccess:
   layout:         member_layout
   stylesheets:     [main.css,blueprint/screen.css,blueprint/print.css,jquery-ui-1.8.16.custom/css/ui-lightness/jquery-ui-1.8.16.custom.css]
   javascripts:    [jquery-ui-1.8.16.custom/js/jquery-1.7.1.js,jquery-ui-1.8.16.custom/js/jquery-ui-1.8.16.custom.min.js]
+
+trashSuccess:
+  has_layout:     true
+  layout:         member_layout
+  stylesheets:    [blueprint/screen.css,blueprint/print.css,main.css,jquery-ui-1.8.16.custom/css/ui-lightness/jquery-ui-1.8.16.custom.css]
+  javascripts:    [jquery-ui-1.8.16.custom/js/jquery-1.7.1.js,jquery-ui-1.8.16.custom/js/jquery-ui-1.8.16.custom.min.js]
