@@ -33,6 +33,7 @@ class FrontendIdeProjectForm extends BaseIdeProjectForm
     $this->getValidator('description')->setOption('required', false);
     $this->getValidator('ide_language_id')->setOption('required', true);
     $this->getValidator('name')->setOption('required', true);
+    $this->setValidator('name', new sfValidatorRegex(array('pattern' => '/^[a-zA-Z][\w|-]*[a-zA-Z0-9]$/', 'required' => true)));
     $this->getValidator('ide_vcs_id')->setOption('required', true);
     $this->getValidator('ide_vcsprotocol_id')->setOption('required', true);
     $this->getValidator('port')->setOption('required', true);
