@@ -7,6 +7,12 @@ Licensed under the [GNU Affero General Public License Version 3][AGPL]
 
 [AGPL]: http://www.gnu.org/licenses/agpl-3.0.html
 
+Website
+----------
+See also our official site. [http://2ga.net][2GANET]
+
+[2GANET]: http://2ga.net
+
 Disclaimer
 ----------
 開発者は本システムが利用者の意図通りに動作することを保証しません。プログラムの動作に関してはソースコードを確認し、利用者様ご自身の責任でご利用ください。
