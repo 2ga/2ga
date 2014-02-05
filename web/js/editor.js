@@ -316,6 +316,7 @@ var createEditor = (function(editorid, filename, url) {
       done = true;
       complete.parentNode.removeChild(complete);
       complete_comment.parentNode.removeChild(complete_comment);
+      console.log("close");
     }
     function pick() {
       insert(sel.options[sel.selectedIndex].text);
@@ -390,5 +391,41 @@ var createEditor = (function(editorid, filename, url) {
     return found;
   }
 
+  $('#close-dialog').dialog({
+    autoOpen: false,
+    width: 600,
+    modal:true,
+    resizable:false,
+    buttons: {
+      "No": function() {
+        $(this).dialog("close"); 
+        var index = $( "li", $tab ).index( $( this ).parent() );
+        $tab.tabs( "remove", index );
+        console.log("index: " + index);
+        var remaning_tabs = $tab.tabs("length");
+        if(remaning_tabs == 0) {
+          $("div.tool-buttons span.save").button("disable");
+          $("div.tool-buttons span.save").hide();
+        }
+        },
+        "Cancel": function() { 
+          $(this).dialog("close"); 
+          },
+          "Yes": function() {
+            $(this).dialog("close");
+            savefile(url, editor);
+            var index = $( "li", $tab ).index( $( this ).parent() );
+            $tab.tabs( "remove", index );
+            console.log("index: " + index);
+            var remaning_tabs = $tab.tabs("length");
+            if(remaning_tabs == 0) {
+              $("div.tool-buttons span.save").button("disable");
+              $("div.tool-buttons span.save").hide();
+            }
+            }
+    }
+    });
+  
+  
   return editor;
 });

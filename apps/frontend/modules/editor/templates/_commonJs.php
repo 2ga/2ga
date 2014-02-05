@@ -226,8 +226,7 @@ span.ui-icon {
         primary: "ui-icon-disk"
       }
     });
-    
-
+ 
     // editor tabs with close icon button
     $tab = $('#editor-tabs').tabs({
       tabTemplate: "<li><a href='#{href}'>#{label}</a> <span class='ui-icon ui-icon-close'></span></li>"
@@ -236,18 +235,23 @@ span.ui-icon {
     // close tab function
     $("#editor-tabs span.ui-icon-close").live( "click", function() {
       var index = $( "li", $tab ).index( $( this ).parent() );
+
+      if ($("li", $tab)[0].firstChild.firstChild.className == "unsaved") {
+        $('#close-dialog span#close-dialog-content').html("This file has been modified. Save changes?");
+        $('#close-dialog').dialog('open');
+        return false;
+      }
+      
       $tab.tabs( "remove", index );
       console.log("index: " + index);
-
+      
       var remaning_tabs = $tab.tabs("length");
       if(remaning_tabs == 0) {
-        $("div.tool-buttons span.save").innerHTML = " ";
         $("div.tool-buttons span.save").button("disable");
         $("div.tool-buttons span.save").hide();
       }
     });
 
-    
     $('#console-tabs').tabs();
     //$tab.sortable();
                     
